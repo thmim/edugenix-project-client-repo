@@ -1,5 +1,5 @@
 import { FcGoogle } from 'react-icons/fc';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import loginlottie from '../../assets/Login.json';
 import Lottie from 'lottie-react';
 import Logo from '../shared/logo/Logo';
@@ -8,12 +8,16 @@ import useAuth from '../../hooks/useAuth';
 
 const Login = () => {
     const {signInUser,socialLogin} = useAuth();
+    const location = useLocation();
+    const navigate = useNavigate();
+    const from = location.state?.from || "/"
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = data => {
         console.log(data);
         signInUser(data.email,data.password)
         .then(result=>{
             console.log(result.user)
+            navigate(from)
         })
         .catch(error=>{
             console.log(error)
@@ -24,6 +28,7 @@ const Login = () => {
          socialLogin()
          .then(result=>{
             console.log(result.user)
+            navigate(from)
          })
          .catch(error=>{
             console.log(error)

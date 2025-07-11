@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import registerlottie from '../../assets/register.json'
 import { useForm } from 'react-hook-form';
 import Lottie from 'lottie-react';
@@ -6,10 +6,11 @@ import { Link } from 'react-router';
 import Logo from '../shared/logo/Logo';
 import { FcGoogle } from 'react-icons/fc';
 import useAuth from '../../hooks/useAuth';
+import axios from 'axios';
 const Register = () => {
     const {register,handleSubmit,formState:{errors}} = useForm();
     const {createUser,socialLogin} = useAuth();
-    
+    const [profilePic,setProfilePic] = useState('');
     const onSubmit = data =>{
         console.log(data)
         createUser(data.email,data.password)
@@ -30,6 +31,16 @@ const Register = () => {
             console.log(error)
          })
         }
+
+        const handleImageUpload = async (e) =>{
+            const image = e.target.files[0];
+            console.log(image)
+            const formData = new FormData();
+            formData.append('image',image)
+            const imageUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_upload_key}`
+            const res = await axios.post(imageUrl,formData)
+            setProfilePic(res.data.data.url);
+        }
     return (
         <div className="min-h-screen bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 flex items-center justify-center px-4 py-8">
             <div className="w-full max-w-6xl bg-white shadow-2xl rounded-3xl overflow-hidden flex flex-col md:flex-row">
@@ -47,6 +58,34 @@ const Register = () => {
                     <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Create An Account</h2>
 
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+                        <div>
+                            {/* name field */}
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
+                            <input
+                                {...register('name', { required: true })}
+                                type="text"
+                                className="input input-bordered w-full"
+                                placeholder="Enter your Name"
+                                
+                            />
+                            {errors.name?.type === "required" && (
+                                <p className='text-red-500' role="alert">Name is required</p>
+                            )}
+                        </div>
+                        <div>
+                            {/* image field */}
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Your Profile picture</label>
+                            <input
+                                type="file"
+                                className="input input-bordered w-full"
+                                placeholder="Enter your Image"
+                                onChange={handleImageUpload}
+                            />
+                            {/* {errors.image?.type === "required" && (
+                                <p className='text-red-500' role="alert">Image is required</p>
+                            )} */}
+                        </div>
+
                         <div>
                             {/* email field */}
                             <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>

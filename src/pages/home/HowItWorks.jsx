@@ -21,7 +21,7 @@ const HowItWorks = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-10">
                     {/* Step 1 */}
                     <Zoom triggerOnce delay={100}>
-                        <div className="bg-white shadow-md rounded-lg p-6 hover:shadow-lg transition">
+                        <div className="bg-green-100 shadow-md rounded-lg p-6 hover:shadow-lg transition">
                             <div className="bg-green-100 text-green-600 p-4 rounded-full inline-block mb-4">
                                 <FaSearch className="text-2xl" />
                             </div>
@@ -34,7 +34,7 @@ const HowItWorks = () => {
 
                     {/* Step 2 */}
                     <Zoom triggerOnce delay={200}>
-                        <div className="bg-white shadow-md rounded-lg p-6 hover:shadow-lg transition">
+                        <div className="bg-amber-100 shadow-md rounded-lg p-6 hover:shadow-lg transition">
                             <div className="bg-blue-100 text-blue-600 p-4 rounded-full inline-block mb-4">
                                 <FaClipboardCheck className="text-2xl" />
                             </div>
@@ -47,7 +47,7 @@ const HowItWorks = () => {
 
                     {/* Step 3 */}
                     <Zoom triggerOnce delay={300}>
-                        <div className="bg-white shadow-md rounded-lg p-6 hover:shadow-lg transition">
+                        <div className="bg-blue-100 shadow-md rounded-lg p-6 hover:shadow-lg transition">
                             <div className="bg-yellow-100 text-yellow-600 p-4 rounded-full inline-block mb-4">
                                 <FaCertificate className="text-2xl" />
                             </div>
