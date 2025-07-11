@@ -2,24 +2,25 @@ import React from 'react';
 import Logo from '../logo/Logo';
 import { Link, NavLink } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
+import Logout from '../Logout';
 
 const Navbar = () => {
-  const {user,logout} = useAuth();
+  const {user} = useAuth();
     
-  const handleLogout = () =>{
-        logout()
-        .then(()=>{
+  // const handleLogout = () =>{
+  //       logout()
+  //       .then(()=>{
             
-        })
-        .catch(error=>{
-            console.log(error)
-        })
-  }
+  //       })
+  //       .catch(error=>{
+  //           console.log(error)
+  //       })
+  // }
 
     const navlinks = <>
     <li className='font-bold'><NavLink to="/">Home</NavLink></li>
     <li className='font-bold'><NavLink to="/allClasses">All Classes</NavLink></li>
-    <li className='font-bold'><NavLink to="/teach">Teach on EduGenix</NavLink></li>
+    <li className='font-bold'><NavLink to="/teacherApply">Teach on EduGenix</NavLink></li>
     </>
     return (
         <div className="navbar shadow-sm border-b border-gray-500 bg-cyan-100/70">
@@ -34,7 +35,7 @@ const Navbar = () => {
         {navlinks}
       </ul>
     </div>
-    <a className="btn btn-ghost text-xl ml-16"><Logo></Logo></a>
+    <a className="hidden lg:block btn btn-ghost text-xl ml-16"><Logo></Logo></a>
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1">
@@ -44,7 +45,7 @@ const Navbar = () => {
   <div className="navbar-end mr-16">
     
     {
-      user? <button onClick={handleLogout} className='btn'>LogOut</button>:<Link to="/login" className="btn">SignIn</Link>
+      user? <Logout></Logout>:<Link to="/login" className="btn">SignIn</Link>
     }
   </div>
 </div>

@@ -7,6 +7,7 @@ import Home from "../pages/home/Home";
 import AuthLayout from "../layouts/AuthLayout";
 import Login from "../pages/Authentication/Login";
 import Register from "../pages/Authentication/Register";
+import TeacherRequest from "../pages/teacherRequest/TeacherRequest";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -14,6 +15,10 @@ export const router = createBrowserRouter([
     children:[
         {
             index:true, Component:Home
+        },
+        {
+          path:"teacherApply",
+          Component:TeacherRequest
         }
     ]
   },

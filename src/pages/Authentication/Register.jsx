@@ -8,39 +8,52 @@ import { FcGoogle } from 'react-icons/fc';
 import useAuth from '../../hooks/useAuth';
 import axios from 'axios';
 const Register = () => {
-    const {register,handleSubmit,formState:{errors}} = useForm();
-    const {createUser,socialLogin} = useAuth();
-    const [profilePic,setProfilePic] = useState('');
-    const onSubmit = data =>{
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { createUser, socialLogin, updateUserProfile } = useAuth();
+    const [profilePic, setProfilePic] = useState('');
+    const onSubmit = data => {
         console.log(data)
-        createUser(data.email,data.password)
-        .then(result=>{
-            console.log(result.user)
-        })
-        .catch(error=>{
-            console.log(error)
-        })
+        createUser(data.email, data.password)
+            .then(result => {
+                console.log(result.user)
+
+                // update profile info in firebase
+                const userProfile = {
+                    displayName: data.name,
+                    photoURL: profilePic
+                }
+                updateUserProfile(userProfile)
+                    .then(() => {
+                       console.log('profile Updated')
+                    }).catch((error) => {
+                        console.log(error)
+                    });
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
 
-    const handleSocialLogin = () =>{
-         socialLogin()
-         .then(result=>{
-            console.log(result.user)
-         })
-         .catch(error=>{
-            console.log(error)
-         })
-        }
+    const handleSocialLogin = () => {
+        socialLogin()
+            .then(result => {
+                console.log(result.user)
 
-        const handleImageUpload = async (e) =>{
-            const image = e.target.files[0];
-            console.log(image)
-            const formData = new FormData();
-            formData.append('image',image)
-            const imageUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_upload_key}`
-            const res = await axios.post(imageUrl,formData)
-            setProfilePic(res.data.data.url);
-        }
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
+    const handleImageUpload = async (e) => {
+        const image = e.target.files[0];
+        console.log(image)
+        const formData = new FormData();
+        formData.append('image', image)
+        const imageUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_upload_key}`
+        const res = await axios.post(imageUrl, formData)
+        setProfilePic(res.data.data.url);
+    }
     return (
         <div className="min-h-screen bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 flex items-center justify-center px-4 py-8">
             <div className="w-full max-w-6xl bg-white shadow-2xl rounded-3xl overflow-hidden flex flex-col md:flex-row">
@@ -66,7 +79,7 @@ const Register = () => {
                                 type="text"
                                 className="input input-bordered w-full"
                                 placeholder="Enter your Name"
-                                
+
                             />
                             {errors.name?.type === "required" && (
                                 <p className='text-red-500' role="alert">Name is required</p>
@@ -94,7 +107,7 @@ const Register = () => {
                                 type="email"
                                 className="input input-bordered w-full"
                                 placeholder="Enter your email"
-                                
+
                             />
                             {errors.email?.type === "required" && (
                                 <p className='text-red-500' role="alert">Email is required</p>
