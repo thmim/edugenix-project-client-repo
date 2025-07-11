@@ -3,41 +3,77 @@ import { FcGoogle } from 'react-icons/fc';
 import { Link } from 'react-router';
 import loginlottie from '../../assets/Login.json';
 import Lottie from 'lottie-react';
+import Logo from '../shared/logo/Logo';
 
 
 
 const Login = () => {
+    
 
     return (
-        <div className='flex justify-center items-center mt-10 mb-10'>
-            <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-                <div className="flex justify-center mt-5">
-                    <Lottie style={{ width: '200px' }} animationData={loginlottie} loop={true} />
+        <div className="min-h-screen bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 flex items-center justify-center px-4">
+            <div className="w-full max-w-6xl bg-white shadow-2xl rounded-3xl overflow-hidden flex flex-col md:flex-row">
+                
+                {/* Left side - Animation */}
+                <div className="md:w-1/2 bg-gradient-to-tr from-indigo-200 to-purple-300 flex justify-center items-center p-6">
+                    <Lottie animationData={loginlottie} className="w-full max-w-md" loop={true} />
                 </div>
-                <h1 className="text-5xl font-bold p-3">Login now!</h1>
-                <div className='p-3'>
 
-                    <button className='btn w-full flex gap-5'><FcGoogle size={25} /> <p>Login With Google</p></button>
+                {/* Right side - Form */}
+                <div className="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+                    <div className="mb-6 flex justify-center">
+                        <Logo></Logo>
+                    </div>
+                    <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Welcome Back!</h2>
+                    
+                    <form className="space-y-5">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                            <input
+                                type="email"
+                                name="email"
+                                className="input input-bordered w-full"
+                                placeholder="Enter your email"
+                                required
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                            <input
+                                type="password"
+                                name="password"
+                                className="input input-bordered w-full"
+                                placeholder="Enter your password"
+                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
+                                title="Must include uppercase, lowercase, and number"
+                                required
+                            />
+                        </div>
+
+                        <div className="text-sm text-blue-500 hover:underline cursor-pointer">
+                            Forgot password?
+                        </div>
+
+                        <button type="submit" className="btn btn-primary w-full text-white tracking-wide">
+                            Login
+                        </button>
+                    </form>
+
+                    <div className="divider my-6">OR</div>
+
+                    <button className="btn w-full flex items-center justify-center gap-3 bg-white border shadow hover:shadow-md transition">
+                        <FcGoogle size={24} />
+                        <span className="text-gray-700 font-medium">Continue with Google</span>
+                    </button>
+
+                    <p className="text-center text-sm mt-6">
+                        Don’t have an account?{" "}
+                        <Link to="/register" className="text-green-400 hover:underline font-semibold">
+                            Register
+                        </Link>
+                    </p>
                 </div>
-                <form className="card-body">
-
-                    <fieldset className="fieldset">
-                        <label className="label">Email</label>
-                        <input type="email" name='email' className="input" placeholder="Email" />
-                        <label className="label">Password</label>
-                        <input
-                            {...register('password', { required: true })}
-                            type="password"
-                            className="input"
-                            placeholder="Password"
-                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
-                            title="Must be more than 6 characters, including number, lowercase letter, uppercase letter" />
-                        <p>Forgot password?</p>
-
-                        <button type='submit' className="btn btn-neutral mt-4">Login</button>
-                        <p className='font-bold text-center pt-4'>Don't Have an account? <Link to="/register" className='text-red-500'>Register</Link></p>
-                    </fieldset>
-                </form>
             </div>
         </div>
     );
