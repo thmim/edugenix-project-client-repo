@@ -4,12 +4,30 @@ import loginlottie from '../../assets/Login.json';
 import Lottie from 'lottie-react';
 import Logo from '../shared/logo/Logo';
 import { useForm } from 'react-hook-form';
+import useAuth from '../../hooks/useAuth';
 
 const Login = () => {
-
+    const {signInUser,socialLogin} = useAuth();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = data => {
         console.log(data);
+        signInUser(data.email,data.password)
+        .then(result=>{
+            console.log(result.user)
+        })
+        .catch(error=>{
+            console.log(error)
+        })
+    }
+
+    const handleSocialLogin = () =>{
+         socialLogin()
+         .then(result=>{
+            console.log(result.user)
+         })
+         .catch(error=>{
+            console.log(error)
+         })
     }
     return (
         <div className="min-h-screen bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 flex items-center justify-center px-4 py-8">
@@ -76,7 +94,7 @@ const Login = () => {
 
                     <div className="divider my-6">OR</div>
 
-                    <button className="btn w-full flex items-center justify-center gap-3 bg-white border shadow hover:shadow-md transition">
+                    <button onClick={handleSocialLogin} className="btn w-full flex items-center justify-center gap-3 bg-white border shadow hover:shadow-md transition">
                         <FcGoogle size={24} />
                         <span className="text-gray-700 font-medium">Continue with Google</span>
                     </button>

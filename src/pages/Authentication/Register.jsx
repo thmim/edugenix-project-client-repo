@@ -8,7 +8,7 @@ import { FcGoogle } from 'react-icons/fc';
 import useAuth from '../../hooks/useAuth';
 const Register = () => {
     const {register,handleSubmit,formState:{errors}} = useForm();
-    const {createUser} = useAuth();
+    const {createUser,socialLogin} = useAuth();
     
     const onSubmit = data =>{
         console.log(data)
@@ -20,6 +20,16 @@ const Register = () => {
             console.log(error)
         })
     }
+
+    const handleSocialLogin = () =>{
+         socialLogin()
+         .then(result=>{
+            console.log(result.user)
+         })
+         .catch(error=>{
+            console.log(error)
+         })
+        }
     return (
         <div className="min-h-screen bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 flex items-center justify-center px-4 py-8">
             <div className="w-full max-w-6xl bg-white shadow-2xl rounded-3xl overflow-hidden flex flex-col md:flex-row">
@@ -81,7 +91,7 @@ const Register = () => {
 
                     <div className="divider my-6">OR</div>
 
-                    <button className="btn w-full flex items-center justify-center gap-3 bg-white border shadow hover:shadow-md transition">
+                    <button onClick={handleSocialLogin} className="btn w-full flex items-center justify-center gap-3 bg-white border shadow hover:shadow-md transition">
                         <FcGoogle size={24} />
                         <span className="text-gray-700 font-medium">Continue with Google</span>
                     </button>
