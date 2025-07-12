@@ -1,11 +1,13 @@
 
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import Loading from '../../shared/loading/Loading';
+import Swal from 'sweetalert2';
 
 const PendingTeacher = () => {
     const axiosSecure = useAxiosSecure();
+    const queryClient = useQueryClient();
     // get pending teacher data
       const {data: pendingTeachers = [], isPending } = useQuery({
         queryKey:['pending-teacher'],
@@ -14,20 +16,69 @@ const PendingTeacher = () => {
             return res.data;
         }
       })
-      if(isPending){
-        return <Loading></Loading>;
-      }
+      
 
-    // Handle Approve/Reject (you can implement API logic later)
+    // Approve mutation
+    const approveMutation = useMutation({
+        mutationFn: async (id) => {
+            return await axiosSecure.patch(`/teachers/status/${id}`, { status: 'approved' });
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries(['pending-teachers']);
+            Swal.fire('Approved!', 'The teacher has been approved.', 'success');
+        },
+        onError: () => {
+            Swal.fire('Error', 'Something went wrong during approval.', 'error');
+        }
+    });
+
+    // Reject mutation
+    const rejectMutation = useMutation({
+        mutationFn: async (id) => {
+            return await axiosSecure.patch(`/teachers/status/${id}`, { status: 'rejected' });
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries(['pending-teachers']);
+            Swal.fire('Rejected!', 'The teacher has been rejected.', 'info');
+        },
+        onError: () => {
+            Swal.fire('Error', 'Something went wrong during rejection.', 'error');
+        }
+    });
+
+    // Confirmation handlers
     const handleApprove = (id) => {
-        console.log('Approve:', id);
-        // send patch request to approve
+        Swal.fire({
+            title: 'Approve this teacher?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, approve',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                approveMutation.mutate(id);
+            }
+        });
     };
 
     const handleReject = (id) => {
-        console.log('Reject:', id);
-        // send patch/delete request to reject
+        Swal.fire({
+            title: 'Reject this teacher?',
+            text: "This action cannot be undone.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, reject',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                rejectMutation.mutate(id);
+            }
+        });
     };
+    if(isPending){
+        return <Loading></Loading>;
+      }
+
 
     return (
         <div className="px-4 py-10 min-h-screen bg-gray-100">
