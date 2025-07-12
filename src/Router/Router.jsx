@@ -8,6 +8,10 @@ import AuthLayout from "../layouts/AuthLayout";
 import Login from "../pages/Authentication/Login";
 import Register from "../pages/Authentication/Register";
 import TeacherRequest from "../pages/teacherRequest/TeacherRequest";
+import PrivateRoute from "../routes/PrivateRoute";
+import DashBoardLayout from "../layouts/DashBoardLayout";
+
+import PendingTeacher from "../pages/dashboardPages/pendingApplication/PendingTeacher";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -18,7 +22,7 @@ export const router = createBrowserRouter([
         },
         {
           path:"teacherApply",
-          Component:TeacherRequest
+          element:<PrivateRoute><TeacherRequest></TeacherRequest></PrivateRoute>
         }
     ]
   },
@@ -33,6 +37,16 @@ export const router = createBrowserRouter([
       {
         path:"register",
         Component:Register
+      }
+    ]
+  },
+  {
+    path:"/dashboard",
+    element:<PrivateRoute><DashBoardLayout></DashBoardLayout></PrivateRoute>,
+    children:[
+      {
+        path:"teacher-requests",
+        Component:PendingTeacher
       }
     ]
   }

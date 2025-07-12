@@ -2,14 +2,49 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { FaUserTie } from 'react-icons/fa';
 import useAuth from '../../hooks/useAuth';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+import Swal from 'sweetalert2';
 
 const TeacherRequest = () => {
     const { register, handleSubmit, reset } = useForm();
-    const { user } = useAuth(); 
+    const { user } = useAuth();
+    const axiosSecure = useAxiosSecure();
 
-    const onSubmit = (data) => {
-        console.log('Instructor Application:', data);
-        reset();
+    const onSubmit = async (data) => {
+        const application = {
+            name: data.name,
+            email: data.email,
+            image: data.image,
+            experience: data.experience,
+            category:data.category,
+            title: data.title,
+            bio: data.bio || '',
+            phone: data.phone || '',
+            status:"pending",
+            submittedAt: new Date().toISOString()
+        };
+
+        try {
+            const res = await axiosSecure.post('/teacher-application', application);
+
+            if (res.data.insertedId) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Application Submitted!',
+                    text: 'Thank you for applying as an instructor.',
+                    timer: 2000,
+                    showConfirmButton: false,
+                });
+                reset();
+            }
+        } catch (error) {
+            console.error('Instructor application failed:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops!',
+                text: 'Something went wrong. Please try again later.',
+            });
+        }
     };
 
     return (
@@ -81,6 +116,21 @@ const TeacherRequest = () => {
                             <option value="experienced">Experienced</option>
                         </select>
                     </div>
+                    {/* category */}
+                    <div>
+                        <label className="block mb-1 font-medium">Category</label>
+                        <select
+                            {...register("category", { required: true })}
+                            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        >
+                            <option value="">-- Select --</option>
+                            <option value="webDevelopment">Web Development</option>
+                            <option value="digitalMarketing">Digital Marketing</option>
+                            <option value="logoDesign">Logo Design</option>
+                            <option value="seo">Seo Optimization</option>
+                            <option value="blog">Blog Writing</option>
+                        </select>
+                    </div>
 
                     {/* Bio/Description */}
                     <div>
@@ -111,7 +161,7 @@ const TeacherRequest = () => {
                             type="submit"
                             className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-semibold transition"
                         >
-                            Submit Application
+                            Submit For Review
                         </button>
                     </div>
                 </form>
