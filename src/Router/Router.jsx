@@ -12,6 +12,7 @@ import PrivateRoute from "../routes/PrivateRoute";
 import DashBoardLayout from "../layouts/DashBoardLayout";
 
 import PendingTeacher from "../pages/dashboardPages/pendingApplication/PendingTeacher";
+import AddClass from "../pages/dashboardPages/addclass/AddClass";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -47,6 +48,10 @@ export const router = createBrowserRouter([
       {
         path:"teacher-requests",
         Component:PendingTeacher
+      },
+      {
+        path:"addClass",
+        Component:AddClass
       }
     ]
   }

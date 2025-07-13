@@ -6,13 +6,13 @@ import {
   FaUsers,
   FaChalkboardTeacher,
   FaUserCircle,
-  
+
 } from 'react-icons/fa';
 const DashBoardLayout = () => {
-    return (
-        <div className="drawer lg:drawer-open p-5">
+  return (
+    <div className="drawer lg:drawer-open p-5">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-      
+
       {/* Main content */}
       <div className="drawer-content flex flex-col">
         {/* Navbar */}
@@ -46,11 +46,11 @@ const DashBoardLayout = () => {
       {/* Sidebar */}
       <div className="drawer-side">
         <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
-        
+
         <ul className="menu bg-gradient-to-b from-blue-200 via-white to-green-50 text-base-content min-h-full w-80 p-4 font-semibold space-y-2 shadow-lg">
           <li>
             <NavLink to="/" className={({ isActive }) => isActive ? 'bg-blue-300 rounded-md' : ''}>
-              <RiHome2Fill className="text-green-600 text-lg"/>
+              <RiHome2Fill className="text-green-600 text-lg" />
               Home
             </NavLink>
           </li>
@@ -76,6 +76,20 @@ const DashBoardLayout = () => {
           </li>
 
           <li>
+            <NavLink to="/dashboard/my-class" className={({ isActive }) => isActive ? 'bg-green-200 rounded-md' : ''}>
+              <FaChalkboardTeacher className="text-indigo-600 text-lg" />
+              My Class
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink to="/dashboard/addClass" className={({ isActive }) => isActive ? 'bg-green-200 rounded-md' : ''}>
+              <FaChalkboardTeacher className="text-teal-600 text-lg" />
+              Add Class
+            </NavLink>
+          </li>
+
+          <li>
             <NavLink to="/dashboard/profile" className={({ isActive }) => isActive ? 'bg-blue-300 rounded-md' : ''}>
               <FaUserCircle className="text-gray-600 text-lg" />
               Profile
@@ -84,7 +98,7 @@ const DashBoardLayout = () => {
         </ul>
       </div>
     </div>
-    );
+  );
 };
 
 export default DashBoardLayout;
