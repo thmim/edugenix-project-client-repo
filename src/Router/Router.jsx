@@ -14,6 +14,7 @@ import DashBoardLayout from "../layouts/DashBoardLayout";
 import PendingTeacher from "../pages/dashboardPages/pendingApplication/PendingTeacher";
 import AddClass from "../pages/dashboardPages/addclass/AddClass";
 import MyClasses from "../pages/dashboardPages/Myclasses/MyClasses";
+import UpdateAddClass from "../pages/dashboardPages/Myclasses/UpdateAddClass";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -57,6 +58,11 @@ export const router = createBrowserRouter([
       {
         path:"my-class",
         Component:MyClasses
+      },
+      {
+        path:"updateAddClass/:id",
+        loader:({params})=>fetch(`http://localhost:3000/my-classes/${params.id}`),
+        Component:UpdateAddClass
       }
     ]
   }

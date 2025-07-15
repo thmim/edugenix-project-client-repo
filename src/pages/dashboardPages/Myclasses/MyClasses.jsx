@@ -4,6 +4,7 @@ import { FaEdit, FaTrashAlt, FaEye } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import { Link } from 'react-router';
 
 
 
@@ -40,6 +41,7 @@ const MyClasses = () => {
                 }
             } catch (err) {
                 Swal.fire('Error', 'Something went wrong!', 'error');
+                console.log(err)
             }
         }
     };
@@ -65,12 +67,14 @@ const MyClasses = () => {
                             </p>
 
                             <div className="mt-4 flex flex-wrap justify-between gap-2">
+                                <Link to={`/dashboard/updateAddClass/${cls._id}`}>
                                 <button
                                     className="flex items-center gap-1 px-3 py-1 text-sm text-white bg-blue-600 rounded hover:bg-blue-700"
-                                // onClick={() => handleUpdate(cls._id)} // to be implemented
+                                // onClick={() => handleUpdate(cls._id)}
                                 >
                                     <FaEdit /> Update
                                 </button>
+                                </Link>
 
                                 <button
                                     className="flex items-center gap-1 px-3 py-1 text-sm text-white bg-red-600 rounded hover:bg-red-700"
