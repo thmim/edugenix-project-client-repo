@@ -15,6 +15,7 @@ import PendingTeacher from "../pages/dashboardPages/pendingApplication/PendingTe
 import AddClass from "../pages/dashboardPages/addclass/AddClass";
 import MyClasses from "../pages/dashboardPages/Myclasses/MyClasses";
 import UpdateAddClass from "../pages/dashboardPages/Myclasses/UpdateAddClass";
+import AllClasses from "../pages/dashboardPages/allclass/AllClasses";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -63,6 +64,10 @@ export const router = createBrowserRouter([
         path:"updateAddClass/:id",
         loader:({params})=>fetch(`http://localhost:3000/my-classes/${params.id}`),
         Component:UpdateAddClass
+      },
+      {
+        path:"all-classes",
+        Component:AllClasses
       }
     ]
   }
