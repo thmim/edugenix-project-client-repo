@@ -13,6 +13,7 @@ import DashBoardLayout from "../layouts/DashBoardLayout";
 
 import PendingTeacher from "../pages/dashboardPages/pendingApplication/PendingTeacher";
 import AddClass from "../pages/dashboardPages/addclass/AddClass";
+import MyClasses from "../pages/dashboardPages/Myclasses/MyClasses";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -52,6 +53,10 @@ export const router = createBrowserRouter([
       {
         path:"addClass",
         Component:AddClass
+      },
+      {
+        path:"my-class",
+        Component:MyClasses
       }
     ]
   }

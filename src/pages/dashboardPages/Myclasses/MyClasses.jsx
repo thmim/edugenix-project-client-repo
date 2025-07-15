@@ -5,6 +5,8 @@ import Swal from 'sweetalert2';
 import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
+
+
 const MyClasses = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
@@ -31,7 +33,7 @@ const MyClasses = () => {
 
         if (confirm.isConfirmed) {
             try {
-                const res = await axiosSecure.delete(`/classes/${id}`);
+                const res = await axiosSecure.delete(`/my-classes/${id}`);
                 if (res.data.deletedCount > 0) {
                     Swal.fire('Deleted!', 'The class has been removed.', 'success');
                     refetch();
@@ -54,7 +56,7 @@ const MyClasses = () => {
                             <h3 className="text-xl font-semibold text-gray-800">{cls.title}</h3>
                             <p className="text-sm text-gray-600 mt-1"><strong>Instructor:</strong> {cls.name}</p>
                             <p className="text-sm text-gray-600"><strong>Email:</strong> {cls.email}</p>
-                            <p className="text-sm text-gray-600 mt-1"><strong>Price:</strong> ${cls.price}</p>
+                            <p className="text-sm text-gray-600 mt-1"><strong>Price:</strong><span className='font-bold text-2xl text-blue-600'> ${cls.price}</span></p>
                             <p className="text-sm text-gray-700 mt-2 line-clamp-3">{cls.description}</p>
                             <p className="text-sm font-medium mt-3">
                                 <span className={`inline-block px-3 py-1 rounded-full text-white ${cls.status === 'approved' ? 'bg-green-500' : cls.status === 'rejected' ? 'bg-red-500' : 'bg-yellow-500'}`}>
