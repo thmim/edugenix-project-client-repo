@@ -16,6 +16,7 @@ import AddClass from "../pages/dashboardPages/addclass/AddClass";
 import MyClasses from "../pages/dashboardPages/Myclasses/MyClasses";
 import UpdateAddClass from "../pages/dashboardPages/Myclasses/UpdateAddClass";
 import AllClasses from "../pages/dashboardPages/allclass/AllClasses";
+import MakeAdmin from "../pages/dashboardPages/makeadmin/MakeAdmin";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -68,6 +69,10 @@ export const router = createBrowserRouter([
       {
         path:"all-classes",
         Component:AllClasses
+      },
+      {
+        path:"users",
+        Component:MakeAdmin
       }
     ]
   }

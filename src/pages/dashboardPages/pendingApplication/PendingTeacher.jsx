@@ -20,8 +20,8 @@ const PendingTeacher = () => {
 
     // Approve mutation
     const approveMutation = useMutation({
-        mutationFn: async (id) => {
-            return await axiosSecure.patch(`/teachers/status/${id}`, { status: 'approved' });
+        mutationFn: async ({id,email}) => {
+            return await axiosSecure.patch(`/teachers/status/${id}`, { status: 'approved',email:email, });
         },
         onSuccess: () => {
             queryClient.invalidateQueries(['pending-teachers']);
@@ -34,8 +34,8 @@ const PendingTeacher = () => {
 
     // Reject mutation
     const rejectMutation = useMutation({
-        mutationFn: async (id) => {
-            return await axiosSecure.patch(`/teachers/status/${id}`, { status: 'rejected' });
+        mutationFn: async ({id,email}) => {
+            return await axiosSecure.patch(`/teachers/status/${id}`, { status: 'rejected',email:email, });
         },
         onSuccess: () => {
             queryClient.invalidateQueries(['pending-teachers']);
@@ -47,7 +47,7 @@ const PendingTeacher = () => {
     });
 
     // Confirmation handlers
-    const handleApprove = (id) => {
+    const handleApprove = (id,email) => {
         Swal.fire({
             title: 'Approve this teacher?',
             icon: 'question',
@@ -56,12 +56,12 @@ const PendingTeacher = () => {
             cancelButtonText: 'Cancel'
         }).then((result) => {
             if (result.isConfirmed) {
-                approveMutation.mutate(id);
+                approveMutation.mutate({id,email});
             }
         });
     };
 
-    const handleReject = (id) => {
+    const handleReject = (id,email) => {
         Swal.fire({
             title: 'Reject this teacher?',
             text: "This action cannot be undone.",
@@ -71,7 +71,7 @@ const PendingTeacher = () => {
             cancelButtonText: 'Cancel'
         }).then((result) => {
             if (result.isConfirmed) {
-                rejectMutation.mutate(id);
+                rejectMutation.mutate({id,email});
             }
         });
     };
@@ -103,6 +103,7 @@ const PendingTeacher = () => {
                         </thead>
                         <tbody>
                             {pendingTeachers.map((teacher, index) => (
+                                
                                 <tr key={teacher._id} className="border-b hover:bg-gray-50 transition">
                                     <td className="p-3 font-medium">{index + 1}</td>
                                     <td className="p-3">
@@ -123,14 +124,14 @@ const PendingTeacher = () => {
                                     </td>
                                     <td className="p-3 flex text-center space-x-2">
                                         <button
-                                            onClick={() => handleApprove(teacher._id)}
+                                            onClick={() => handleApprove(teacher._id,teacher.email)}
                                             className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-full text-sm flex items-center gap-1"
                                         >
                                             <FaCheckCircle />
                                             Approve
                                         </button>
                                         <button
-                                            onClick={() => handleReject(teacher._id)}
+                                            onClick={() => handleReject(teacher._id,teacher.email)}
                                             className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-full text-sm flex items-center gap-1"
                                         >
                                             <FaTimesCircle />

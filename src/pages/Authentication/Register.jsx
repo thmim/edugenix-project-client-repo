@@ -22,6 +22,8 @@ const Register = () => {
                 // post and update user info
                 const userInfo = {
                     email:data.email,
+                    name:data.name,
+                    image: profilePic,
                     role:"student",
                     created_at:new Date().toISOString(),
                     last_login:new Date().toISOString(),
@@ -53,6 +55,8 @@ const Register = () => {
                 const user = result.user
                 const userSocialInfo = {
                     email:user.email,
+                    name:user.displayName,
+                    image:user.photoURL,
                     role:"student",
                     created_at:new Date().toISOString(),
                     last_login:new Date().toISOString(),
