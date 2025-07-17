@@ -7,15 +7,27 @@ import Logo from '../shared/logo/Logo';
 import { FcGoogle } from 'react-icons/fc';
 import useAuth from '../../hooks/useAuth';
 import axios from 'axios';
+import useAxios from '../../hooks/useAxios';
 const Register = () => {
+    const axiosInstance = useAxios();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { createUser, socialLogin, updateUserProfile } = useAuth();
     const [profilePic, setProfilePic] = useState('');
     const onSubmit = data => {
         console.log(data)
         createUser(data.email, data.password)
-            .then(result => {
+            .then(async (result) => {
                 console.log(result.user)
+
+                // post and update user info
+                const userInfo = {
+                    email:data.email,
+                    role:"student",
+                    created_at:new Date().toISOString(),
+                    last_login:new Date().toISOString(),
+                }
+                const userRes = await axiosInstance.post('/users',userInfo)
+                console.log(userRes.data)
 
                 // update profile info in firebase
                 const userProfile = {
@@ -36,8 +48,17 @@ const Register = () => {
 
     const handleSocialLogin = () => {
         socialLogin()
-            .then(result => {
-                console.log(result.user)
+            .then(async (result) => {
+                
+                const user = result.user
+                const userSocialInfo = {
+                    email:user.email,
+                    role:"student",
+                    created_at:new Date().toISOString(),
+                    last_login:new Date().toISOString(),
+                }
+                const res = await axiosInstance.post('/users',userSocialInfo)
+                console.log('updated user info',res.data)
 
             })
             .catch(error => {

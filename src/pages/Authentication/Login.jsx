@@ -5,9 +5,11 @@ import Lottie from 'lottie-react';
 import Logo from '../shared/logo/Logo';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../hooks/useAuth';
+import useAxios from '../../hooks/useAxios';
 
 const Login = () => {
     const {signInUser,socialLogin} = useAuth();
+    const axiosInstance = useAxios();
     const location = useLocation();
     const navigate = useNavigate();
     const from = location.state?.from || "/"
@@ -26,8 +28,16 @@ const Login = () => {
 
     const handleSocialLogin = () =>{
          socialLogin()
-         .then(result=>{
-            console.log(result.user)
+         .then(async(result)=>{
+            const user = result.user
+                const userSocialInfo = {
+                    email:user.email,
+                    role:"student",
+                    created_at:new Date().toISOString(),
+                    last_login:new Date().toISOString(),
+                }
+                const res = await axiosInstance.post('/users',userSocialInfo)
+                console.log('updated user info',res.data)
             navigate(from)
          })
          .catch(error=>{
