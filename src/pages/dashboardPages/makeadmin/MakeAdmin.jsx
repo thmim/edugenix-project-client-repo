@@ -95,8 +95,8 @@ const MakeAdmin = () => {
                                     </td>
                                     <td className="px-4 py-2">{user.name}</td>
                                     <td className="px-4 py-2">{user.email}</td>
-                                    <td className="px-4 py-2">{user.created_at}</td>
-                                    <td className="px-4 py-2">{user.role || 'user'}</td>
+                                    <td className="px-4 py-2">{new Date(user.created_at).toLocaleDateString()}</td>
+                                    <td className="px-4 py-2">{user.role || 'student'}</td>
                                     <td className="px-4 py-2">
                                         {user.role === 'admin' ? (
                                             <button

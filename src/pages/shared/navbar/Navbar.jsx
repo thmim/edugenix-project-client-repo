@@ -19,7 +19,7 @@ const Navbar = () => {
 
     const navlinks = <>
     <li className='font-bold'><NavLink to="/">Home</NavLink></li>
-    <li className='font-bold'><NavLink to="/allClasses">All Classes</NavLink></li>
+    <li className='font-bold'><NavLink to="/allPaidClasses">All Classes</NavLink></li>
     <li className='font-bold'><NavLink to="/teacherApply">Teach on EduGenix</NavLink></li>
     </>
     return (

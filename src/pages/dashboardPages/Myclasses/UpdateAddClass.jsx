@@ -73,7 +73,7 @@ const UpdateAddClass = () => {
             <div className="bg-white w-full max-w-3xl p-8 shadow-lg rounded-lg">
                 <h2 className="text-2xl font-bold mb-6 text-center text-blue-700 flex items-center justify-center gap-2">
                     <FaPlusCircle className="text-blue-600" />
-                    Update Your Add Class
+                    Update Your Add Class Information
                 </h2>
 
                 <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 md:grid-cols-2 gap-6">

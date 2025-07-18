@@ -17,6 +17,8 @@ import MyClasses from "../pages/dashboardPages/Myclasses/MyClasses";
 import UpdateAddClass from "../pages/dashboardPages/Myclasses/UpdateAddClass";
 import AllClasses from "../pages/dashboardPages/allclass/AllClasses";
 import MakeAdmin from "../pages/dashboardPages/makeadmin/MakeAdmin";
+import AllPaidClasses from "../pages/teacherRequest/AllPaidClasses";
+import PaidClassDetails from "../pages/teacherRequest/PaidClassDetails";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -28,6 +30,14 @@ export const router = createBrowserRouter([
         {
           path:"teacherApply",
           element:<PrivateRoute><TeacherRequest></TeacherRequest></PrivateRoute>
+        },
+        {
+          path:"allPaidClasses",
+          Component:AllPaidClasses
+        },
+        {
+          path:"enroll/:id",
+          Component:PaidClassDetails
         }
     ]
   },
