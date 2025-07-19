@@ -19,6 +19,8 @@ import AllClasses from "../pages/dashboardPages/allclass/AllClasses";
 import MakeAdmin from "../pages/dashboardPages/makeadmin/MakeAdmin";
 import AllPaidClasses from "../pages/teacherRequest/AllPaidClasses";
 import PaidClassDetails from "../pages/teacherRequest/PaidClassDetails";
+import Payment from "../pages/dashboardPages/payment/Payment";
+import MyEnrollClass from "../pages/dashboardPages/Enrollclass/MyEnrollClass";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -52,6 +54,10 @@ export const router = createBrowserRouter([
       {
         path:"register",
         Component:Register
+      },
+      {
+        path:"payments/:courseId",
+        Component:Payment
       }
     ]
   },
@@ -83,6 +89,10 @@ export const router = createBrowserRouter([
       {
         path:"users",
         Component:MakeAdmin
+      },
+      {
+        path:"my-enroll-class",
+        Component:MyEnrollClass
       }
     ]
   }

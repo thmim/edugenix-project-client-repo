@@ -2,9 +2,9 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { FaEdit, FaTrashAlt, FaEye } from 'react-icons/fa';
 import Swal from 'sweetalert2';
-import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { Link } from 'react-router';
+import useAuth from '../../../hooks/UseAuth';
 
 
 

@@ -6,6 +6,7 @@ import {
   FaUsers,
   FaChalkboardTeacher,
   FaUserCircle,
+  FaBookOpen,
 
 } from 'react-icons/fa';
 const DashBoardLayout = () => {
@@ -79,6 +80,17 @@ const DashBoardLayout = () => {
             <NavLink to="/dashboard/my-class" className={({ isActive }) => isActive ? 'bg-green-200 rounded-md' : ''}>
               <FaChalkboardTeacher className="text-indigo-600 text-lg" />
               My Class
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/dashboard/my-enroll-class"
+              className={({ isActive }) =>
+                isActive ? 'bg-green-200 rounded-md flex items-center gap-2 p-2' : 'flex items-center gap-2 p-2'
+              }
+            >
+              <FaBookOpen className="text-lg" />
+              My Enroll Class
             </NavLink>
           </li>
 
