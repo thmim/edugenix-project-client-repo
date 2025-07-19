@@ -29,11 +29,11 @@ const AllPaidClasses = () => {
             </figure>
             <div className="card-body">
               <h2 className="card-title">{cls.title}</h2>
-              <p className="text-sm text-gray-600 mb-1">By: <span className="font-medium">{cls.name}</span></p>
+              <p className="text-sm text-gray-600 mb-1">By: <span className="font-bold">{cls.name}</span></p>
               <p className="text-gray-700 text-sm">{cls.description.slice(0, 100)}...</p>
               <div className="mt-2">
-                <p className="font-semibold">Price: <span className="text-blue-600">${cls.price}</span></p>
-                <p className="text-sm text-gray-600">Enrolled: {cls.enrollmentCount}</p>
+                <p className="font-bold text-xl">Price: <span className="text-blue-600 font-bold text-xl">${cls.price}</span></p>
+                <p className="font-bold text-xl text-gray-600">Enrolled: {cls.enrollmentCount}</p>
               </div>
               <div className="card-actions justify-end mt-4">
                 <Link to={`/enroll/${cls._id}`}>

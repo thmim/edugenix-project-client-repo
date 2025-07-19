@@ -89,7 +89,7 @@ const DashBoardLayout = () => {
                 isActive ? 'bg-green-200 rounded-md flex items-center gap-2 p-2' : 'flex items-center gap-2 p-2'
               }
             >
-              <FaBookOpen className="text-lg" />
+              <FaBookOpen className="text-lg text-indigo-600" />
               My Enroll Class
             </NavLink>
           </li>

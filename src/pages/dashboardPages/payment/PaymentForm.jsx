@@ -136,7 +136,7 @@ import Loading from '../../shared/loading/Loading';
 const PaymentForm = () => {
   const { courseId } = useParams();
   const axiosSecure = useAxiosSecure();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const { user } = useAuth();
   const stripe = useStripe();
   const elements = useElements();
@@ -237,7 +237,7 @@ const PaymentForm = () => {
                 popup: 'rounded-xl shadow-lg'
               }
             });
-            // navigate('/dashboard/myparcels');
+            navigate('/dashboard/my-enroll-class');
           }
         }
       }
