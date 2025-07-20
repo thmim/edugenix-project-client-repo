@@ -11,7 +11,6 @@ import useAuth from '../../../hooks/UseAuth';
 const MyClasses = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
-
     const { data: classes = [], refetch } = useQuery({
         queryKey: ['my-classes', user?.email],
         queryFn: async () => {
@@ -83,16 +82,19 @@ const MyClasses = () => {
                                     <FaTrashAlt /> Delete
                                 </button>
 
+                                <Link to={`/dashboard/seeDetails/${cls._id}`}>
                                 <button
                                     className={`flex items-center gap-1 px-3 py-1 text-sm rounded transition 
         ${cls.status === 'approved'
                                             ? 'bg-gray-700 text-white hover:bg-gray-800'
                                             : 'bg-gray-300 text-gray-500 cursor-not-allowed'}`}
                                     disabled={cls.status !== 'approved'}
-                                // onClick={() => handleSeeDetails(cls)} // Implement this later
+                            
                                 >
                                     <FaEye /> See Details
                                 </button>
+                                </Link>
+                                
                             </div>
                         </div>
                     </div>

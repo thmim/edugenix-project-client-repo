@@ -21,6 +21,7 @@ import AllPaidClasses from "../pages/teacherRequest/AllPaidClasses";
 import PaidClassDetails from "../pages/teacherRequest/PaidClassDetails";
 import Payment from "../pages/dashboardPages/payment/Payment";
 import MyEnrollClass from "../pages/dashboardPages/Enrollclass/MyEnrollClass";
+import SeeDetails from "../pages/dashboardPages/seeDetailsPage/SeeDetails";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -78,6 +79,10 @@ export const router = createBrowserRouter([
         Component:MyClasses
       },
       {
+        path:"seeDetails/:id",
+        Component:SeeDetails
+      },
+      {
         path:"updateAddClass/:id",
         loader:({params})=>fetch(`http://localhost:3000/my-classes/${params.id}`),
         Component:UpdateAddClass
@@ -86,6 +91,7 @@ export const router = createBrowserRouter([
         path:"all-classes",
         Component:AllClasses
       },
+      
       {
         path:"users",
         Component:MakeAdmin
