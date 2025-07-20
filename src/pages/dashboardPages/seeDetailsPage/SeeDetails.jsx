@@ -8,7 +8,7 @@ import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useParams } from 'react-router';
 
 const SeeDetails = () => {
-    const {classId} = useParams();
+    const {id} = useParams();
     const [isOpen, setIsOpen] = useState(false);
     const queryClient = useQueryClient();
     const axiosSecure = useAxiosSecure();
@@ -57,10 +57,10 @@ const SeeDetails = () => {
             title: data.title,
             description: data.description,
             deadline: new Date(data.deadline).toISOString(),
-            create_date: new Date().toISOString(),
-            assignment_count: 1,
+            createdAt: new Date().toISOString(),
+            // assignment_count: 1,
             submission_count: 0,
-            classId:classId
+            id
         }
         createAssignment(assignmentData);
         // TODO: send to backend

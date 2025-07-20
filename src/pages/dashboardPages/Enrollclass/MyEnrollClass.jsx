@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import useAuth from '../../../hooks/UseAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import Loading from '../../shared/loading/Loading';
+import { Link } from 'react-router';
 
 const MyEnrollClass = () => {
   const { user } = useAuth();
@@ -34,9 +35,10 @@ const MyEnrollClass = () => {
     );
   }
 
-   const handleContinue = (courseTitle) => {
-    console.log(`Continuing to class: ${courseTitle}`);
-      };
+  //  const handleContinue = (courseTitle) => {
+  //   console.log(`Continuing to class: ${courseTitle}`);
+  //     };
+      // console.log(enrolledClasses)
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6 sm:p-8 lg:p-10">
@@ -60,7 +62,8 @@ const MyEnrollClass = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {enrolledClasses.map(cls => (
             <div
-              key={cls._id} 
+              key={cls._id}
+               
               className="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden border border-gray-200"
             >
              
@@ -95,13 +98,16 @@ const MyEnrollClass = () => {
                   </p>
                 </div>
 
-                {/* Continue বাটন */}
-                <button
-                  onClick={() => handleContinue(cls.courseTitle)}
+                 {/* Continue button */}
+                 <Link to={`/dashboard/assignments/${cls.courseId}`}>
+                 <button
                   className="w-full bg-indigo-600 text-white py-3 px-6 rounded-lg font-semibold text-lg hover:bg-indigo-700 transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-75 shadow-md hover:shadow-lg"
                 >
                   Continue Learning
                 </button>
+                 
+                 </Link>
+                
               </div>
             </div>
           ))}

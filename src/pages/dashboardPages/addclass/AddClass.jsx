@@ -86,7 +86,8 @@ const AddClass = () => {
             image: classImage,
             status: 'pending',
             enrollmentCount: 0,
-            createdAt: new Date().toISOString()
+            createdAt: new Date().toISOString(),
+            assignment_count:0,
         };
 
         addClass(classData);
