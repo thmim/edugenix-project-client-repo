@@ -2,23 +2,37 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Dialog } from '@headlessui/react';
 import { FaPlus } from 'react-icons/fa';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useParams } from 'react-router';
+import useAuth from '../../../hooks/useAuth';
 
 const SeeDetails = () => {
     const {id} = useParams();
+    const {user} = useAuth();
     const [isOpen, setIsOpen] = useState(false);
     const queryClient = useQueryClient();
     const axiosSecure = useAxiosSecure();
-
+    console.log(id)
     const {
         register,
         handleSubmit,
         reset,
         formState: { errors },
     } = useForm();
+
+    // get enrollmentcount,assignmentcount,assignmentSubmissioncount using backend aggregate 
+    const { data:classDetails = {}, } = useQuery({
+        
+        queryKey: ['classDetails', id],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/classes/assignment/${id}`);
+            return res.data;
+        }
+        
+    });
+    console.log(classDetails)
 
     //   post assignment data here
     const { mutate: createAssignment, isPending, closeModal } = useMutation({
@@ -58,12 +72,12 @@ const SeeDetails = () => {
             description: data.description,
             deadline: new Date(data.deadline).toISOString(),
             createdAt: new Date().toISOString(),
-            // assignment_count: 1,
             submission_count: 0,
+            created_by:user.email,
             id
         }
+         // TODO: send to backend
         createAssignment(assignmentData);
-        // TODO: send to backend
         setIsOpen(false);
         reset();
     };
@@ -71,6 +85,21 @@ const SeeDetails = () => {
     return (
         <div className="max-w-4xl mx-auto p-4">
             <h2 className="text-2xl font-bold mb-6">Class Details</h2>
+            {/* ======== Class Progress Section ======== */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div className="bg-white shadow-md rounded-lg p-6 text-center border border-gray-200">
+                    <h3 className="text-sm text-gray-500 mb-2">Total Enrollments</h3>
+                    <p className="text-3xl font-semibold text-blue-600">{classDetails.enrollmentCount}</p>
+                </div>
+                <div className="bg-white shadow-md rounded-lg p-6 text-center border border-gray-200">
+                    <h3 className="text-sm text-gray-500 mb-2">Total Assignments</h3>
+                    <p className="text-3xl font-semibold text-green-600">{classDetails.assignmentCount}</p>
+                </div>
+                <div className="bg-white shadow-md rounded-lg p-6 text-center border border-gray-200">
+                    <h3 className="text-sm text-gray-500 mb-2">Total Submissions</h3>
+                    <p className="text-3xl font-semibold text-purple-600">{classDetails.totalSubmissionCount}</p>
+                </div>
+            </div>
 
             <button
                 onClick={() => setIsOpen(true)}

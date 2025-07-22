@@ -6,10 +6,13 @@ import Swal from 'sweetalert2';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useParams } from 'react-router';
 import Loading from '../../shared/loading/Loading';
+import useAuth from '../../../hooks/useAuth';
+import TerButton from '../Evaluation/TerButton';
 
 const AllAssignment = () => {
   const axiosSecure = useAxiosSecure();
-  const {courseId} = useParams();
+  const { courseId } = useParams();
+  const { user } = useAuth();
 
   // Fetch all assignments for the given class ID
   const { data: assignments = [], isLoading } = useQuery({
@@ -24,31 +27,55 @@ const AllAssignment = () => {
 
   // Mutation to submit assignment
   const { mutate: submitAssignment, isPending } = useMutation({
-    mutationFn: async ({ assignmentId, submission }) => {
-      const res = await axiosSecure.post('/submissions', {
-        assignmentId,
-        submission
-      });
+    mutationFn: async (assignmentInfo) => {
+
+      const res = await axiosSecure.post('/submissions', assignmentInfo);
+
       return res.data;
     },
     onSuccess: () => {
       Swal.fire('Success', 'Assignment submitted!', 'success');
       reset();
     },
-    onError: (err) => {
-      Swal.fire('Error', err.message, 'error');
-    }
+    // onError: (err) => {
+    //   Swal.fire('Error', err.message, 'error');
+    // }
+    onError: (error) => {
+      if (error.response?.status === 409) {
+        const serverMessage = error.response.data.message;
+        Swal.fire({
+          icon: 'warning',
+          title: serverMessage || 'Already submitted!',
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Something went wrong!',
+          text: error.message,
+        });
+      }
+    },
   });
 
   const onSubmit = (data, assignmentId) => {
-    submitAssignment({ assignmentId, submission: data[`submission_${assignmentId}`] });
+
+    const assignmentInfo = {
+      assignmentId,
+      submission: data.submission,
+      createdAt: new Date().toISOString(),
+      submitBy: user.email,
+      studentName: user.displayName,
+    }
+    submitAssignment(assignmentInfo)
   };
 
   if (isLoading) {
     return <Loading></Loading>;
   }
 
+
   return (
+    <div>
     <div className="overflow-x-auto px-4 py-6">
       <h2 className="text-4xl font-extrabold text-gray-800 mb-10 text-center drop-shadow-sm">All Assignments of this course</h2>
       {assignments.length === 0 ? (
@@ -75,7 +102,7 @@ const AllAssignment = () => {
                     className="flex gap-2"
                   >
                     <input
-                      {...register(`submission_${assignment._id}`, { required: true })}
+                      {...register('submission', { required: true })}
                       type="text"
                       placeholder="Submission URL or Answer"
                       className="border px-2 py-1 rounded w-full md:w-64"
@@ -83,11 +110,10 @@ const AllAssignment = () => {
                     <button
                       type="submit"
                       disabled={isPending}
-                      className={`px-3 py-1 rounded text-white ${
-                        isPending
+                      className={`px-3 py-1 rounded text-white ${isPending
                           ? 'bg-gray-400 cursor-not-allowed'
                           : 'bg-blue-600 hover:bg-blue-700'
-                      }`}
+                        }`}
                     >
                       {isPending ? 'Submitting...' : 'Submit'}
                     </button>
@@ -98,6 +124,8 @@ const AllAssignment = () => {
           </tbody>
         </table>
       )}
+    </div>
+    <TerButton courseId={courseId}></TerButton>
     </div>
   );
 };
