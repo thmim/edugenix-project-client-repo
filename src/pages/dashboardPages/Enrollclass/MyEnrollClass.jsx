@@ -87,14 +87,16 @@ const MyEnrollClass = () => {
                 </p>
 
                                 <div className="text-gray-600 text-sm mb-4 space-y-1">
-                  <p>
+                  {/* <p>
                     <span className="font-semibold">Transaction ID:</span> {cls.transactionId ? cls.transactionId.substring(0, 10) + '...' : 'N/A'}
+                  </p> */}
+                  <p className="font-bold">
+                    Amount Paid:
+                    <span className='font-bold text-blue-500'> ${cls.amount ? cls.amount.toFixed(2) : 'N/A'}</span>
                   </p>
-                  <p>
-                    <span className="font-semibold">Amount Paid:</span> ${cls.amount ? cls.amount.toFixed(2) : 'N/A'}
-                  </p>
-                  <p>
-                    <span className="font-semibold">Enrolled On:</span> {cls.paid_at ? new Date(cls.paid_at).toLocaleDateString() : 'N/A'}
+                  <p className="font-bold">
+                    Enrolled On:
+                    <span className='font-bold'>{cls.paid_at ? new Date(cls.paid_at).toLocaleDateString() : 'N/A'}</span> 
                   </p>
                 </div>
 

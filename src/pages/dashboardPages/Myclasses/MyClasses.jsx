@@ -4,7 +4,7 @@ import { FaEdit, FaTrashAlt, FaEye } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { Link } from 'react-router';
-import useAuth from '../../../hooks/UseAuth';
+import useAuth from '../../../hooks/useAuth';
 
 
 

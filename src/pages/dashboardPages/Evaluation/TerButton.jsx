@@ -6,11 +6,13 @@ import useAuth from '../../../hooks/useAuth';
 import Swal from 'sweetalert2';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
+import { useNavigate } from 'react-router';
 
 const TerButton = ({courseId}) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const axiosSecure = useAxiosSecure();
     const { user } = useAuth();
+    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
@@ -28,6 +30,7 @@ const TerButton = ({courseId}) => {
                 description: formData.description,
                 studentEmail: user.email,
                 studentName: user.displayName,
+                image:user.photoURL,
                 createdAt: new Date().toISOString(),
                 courseId:courseId
             };
@@ -42,6 +45,7 @@ const TerButton = ({courseId}) => {
                 icon: "success",
                 draggable: true
             });
+            navigate('/dashboard/my-enroll-class')
             reset();
         },
         onError: (error) => {

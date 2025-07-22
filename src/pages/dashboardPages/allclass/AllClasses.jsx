@@ -2,6 +2,7 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import { Link } from 'react-router';
 
 const AllClasses = () => {
     const axiosSecure = useAxiosSecure();
@@ -77,6 +78,7 @@ const AllClasses = () => {
                                 >
                                     Reject
                                 </button>
+                                <Link to={`/dashboard/seeDetails/${cls._id}`}>
                                 <button
                                     disabled={cls.status !== 'approved'}
                                     className={`px-3 py-1 text-sm rounded transition ${
@@ -87,6 +89,7 @@ const AllClasses = () => {
                                 >
                                     Progress
                                 </button>
+                                </Link>
                             </td>
                         </tr>
                     ))}

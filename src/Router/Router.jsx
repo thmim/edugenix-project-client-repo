@@ -23,6 +23,7 @@ import Payment from "../pages/dashboardPages/payment/Payment";
 import MyEnrollClass from "../pages/dashboardPages/Enrollclass/MyEnrollClass";
 import SeeDetails from "../pages/dashboardPages/seeDetailsPage/SeeDetails";
 import AllAssignment from "../pages/dashboardPages/Allassignment/AllAssignment";
+import Profile from "../pages/dashboardPages/userProfile/Profile";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -104,6 +105,10 @@ export const router = createBrowserRouter([
       {
         path:"my-enroll-class",
         Component:MyEnrollClass
+      },
+      {
+        path:"profile",
+        Component:Profile
       }
     ]
   }

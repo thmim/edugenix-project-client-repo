@@ -23,6 +23,7 @@
     "lottie-react": "^2.4.1",
     "react": "^19.1.0",
     "react-awesome-reveal": "^4.3.1",
+    "react-countup": "^6.5.3",
     "react-dom": "^19.1.0",
     "react-fast-marquee": "^1.6.5",
     "react-hook-form": "^7.60.0",
@@ -30,7 +31,10 @@
     "react-lottie": "^1.2.10",
     "react-rating-stars-component": "^2.2.0",
     "react-router": "^7.6.3",
+    "react-slick": "^0.30.3",
+    "slick-carousel": "^1.8.1",
     "sweetalert2": "^11.22.2",
+    "swiper": "^11.2.10",
     "tailwindcss": "^4.1.11"
   },
   "devDependencies": {
