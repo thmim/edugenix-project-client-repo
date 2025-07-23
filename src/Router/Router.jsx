@@ -24,6 +24,9 @@ import MyEnrollClass from "../pages/dashboardPages/Enrollclass/MyEnrollClass";
 import SeeDetails from "../pages/dashboardPages/seeDetailsPage/SeeDetails";
 import AllAssignment from "../pages/dashboardPages/Allassignment/AllAssignment";
 import Profile from "../pages/dashboardPages/userProfile/Profile";
+import Forbidden from "../pages/Forbidden/Forbidden";
+import AdminRoute from "../routes/AdminRoute";
+import DashBoardHome from "../pages/dashboardPages/dashboardHome/DashBoardHome";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -38,11 +41,15 @@ export const router = createBrowserRouter([
         },
         {
           path:"allPaidClasses",
-          Component:AllPaidClasses
+          element:<PrivateRoute><AllPaidClasses></AllPaidClasses></PrivateRoute>
         },
         {
           path:"enroll/:id",
-          Component:PaidClassDetails
+          element:<PrivateRoute><PaidClassDetails></PaidClassDetails></PrivateRoute>
+        },
+        {
+          path:"forbidden",
+          Component:Forbidden
         }
     ]
   },
@@ -60,7 +67,7 @@ export const router = createBrowserRouter([
       },
       {
         path:"payments/:courseId",
-        Component:Payment
+        element:<PrivateRoute><Payment></Payment></PrivateRoute>
       }
     ]
   },
@@ -69,8 +76,11 @@ export const router = createBrowserRouter([
     element:<PrivateRoute><DashBoardLayout></DashBoardLayout></PrivateRoute>,
     children:[
       {
+        index:true, Component:DashBoardHome
+      },
+      {
         path:"teacher-requests",
-        Component:PendingTeacher
+        element:<AdminRoute><PendingTeacher></PendingTeacher></AdminRoute>
       },
       {
         path:"addClass",
@@ -95,12 +105,12 @@ export const router = createBrowserRouter([
       },
       {
         path:"all-classes",
-        Component:AllClasses
+        element:<AdminRoute><AllClasses></AllClasses></AdminRoute>
       },
       
       {
         path:"users",
-        Component:MakeAdmin
+        element:<AdminRoute><MakeAdmin></MakeAdmin></AdminRoute>
       },
       {
         path:"my-enroll-class",

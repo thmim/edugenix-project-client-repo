@@ -7,16 +7,6 @@ import Logout from '../Logout';
 const Navbar = () => {
   const {user} = useAuth();
     
-  // const handleLogout = () =>{
-  //       logout()
-  //       .then(()=>{
-            
-  //       })
-  //       .catch(error=>{
-  //           console.log(error)
-  //       })
-  // }
-
     const navlinks = <>
     <li className='font-bold'><NavLink to="/">Home</NavLink></li>
     <li className='font-bold'><NavLink to="/allPaidClasses">All Classes</NavLink></li>
@@ -35,7 +25,7 @@ const Navbar = () => {
         {navlinks}
       </ul>
     </div>
-    <span className="hidden lg:block btn btn-ghost text-xl ml-16"><Logo></Logo></span>
+    <span className="hidden lg:block text-xl ml-16"><Logo></Logo></span>
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1">

@@ -129,7 +129,7 @@ import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
 import Swal from 'sweetalert2';
-import useAuth from '../../../hooks/UseAuth';
+import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import Loading from '../../shared/loading/Loading';
 
@@ -248,18 +248,68 @@ const PaymentForm = () => {
   };
 
   return (
-    <div className="mt-10 p-6 bg-white shadow-md rounded-xl">
-      <form className="space-y-6" onSubmit={handleSubmit}>
-        <CardElement className="p-4 border border-gray-300 rounded-md bg-gray-50 focus-within:ring-2 focus-within:ring-blue-500" />
-        <button
-          type="submit"
-          className="w-full py-2 px-4 rounded-md text-white font-semibold transition duration-300 bg-blue-600 hover:bg-blue-700"
-          disabled={!stripe}
-        >
-          Pay ${amount}
-        </button>
-        {error && <p className="text-red-500">{error}</p>}
-      </form>
+    // <div className="mt-10 p-6 bg-white shadow-md rounded-xl">
+    //   <form className="space-y-6" onSubmit={handleSubmit}>
+    //     <CardElement className="p-4 border border-gray-300 rounded-md bg-gray-50 focus-within:ring-2 focus-within:ring-blue-500" />
+    //     <button
+    //       type="submit"
+    //       className="w-full py-2 px-4 rounded-md text-white font-semibold transition duration-300 bg-blue-600 hover:bg-blue-700"
+    //       disabled={!stripe}
+    //     >
+    //       Pay ${amount}
+    //     </button>
+    //     {error && <p className="text-red-500">{error}</p>}
+    //   </form>
+    // </div>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4 sm:p-6 lg:p-8">
+      <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl p-8 md:p-10 border border-gray-200 transform transition-transform duration-300 hover:scale-[1.01]">
+        <h2 className="text-4xl font-extrabold text-gray-800 mb-8 text-center leading-tight">
+          Complete Your Payment
+        </h2>
+        <p className="text-xl text-center text-indigo-600 font-semibold mb-6">
+          Course: {classInfo?.title || 'Loading...'}
+        </p>
+        <p className="text-3xl font-bold text-center text-blue-700 mb-8">
+          Amount: ${amount?.toFixed(2) || 'N/A'}
+        </p>
+
+        <form className="space-y-6" onSubmit={handleSubmit}>
+          <div className="p-4 border border-gray-300 rounded-xl bg-gray-50 focus-within:ring-2 focus-within:ring-blue-500 transition duration-200 shadow-inner">
+            <CardElement
+              options={{
+                style: {
+                  base: {
+                    fontSize: '18px',
+                    color: '#424770',
+                    '::placeholder': {
+                      color: '#A0AEC0',
+                    },
+                  },
+                  invalid: {
+                    color: '#9e2146',
+                  },
+                },
+                // disabled: isFormDisabled, // Disable CardElement when form is disabled
+              }}
+              className="py-2"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full py-3 px-4 rounded-xl text-white font-bold text-lg transition duration-300 bg-blue-600 hover:bg-blue-700 transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
+            
+          >
+            Pay ${amount}
+          </button>
+
+          {error && (
+            <p className="text-red-500 text-center text-sm mt-3 p-2 bg-red-50 rounded-lg border border-red-200">
+              {error}
+            </p>
+          )}
+        </form>
+      </div>
     </div>
   );
 };

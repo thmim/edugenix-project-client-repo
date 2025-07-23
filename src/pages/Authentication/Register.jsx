@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import registerlottie from '../../assets/register.json'
 import { useForm } from 'react-hook-form';
 import Lottie from 'lottie-react';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import Logo from '../shared/logo/Logo';
 import { FcGoogle } from 'react-icons/fc';
 import useAuth from '../../hooks/useAuth';
@@ -13,12 +13,15 @@ const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { createUser, socialLogin, updateUserProfile } = useAuth();
     const [profilePic, setProfilePic] = useState('');
+    const location = useLocation();
+        const navigate = useNavigate();
+        const from = location.state?.from || "/"
     const onSubmit = data => {
         console.log(data)
         createUser(data.email, data.password)
             .then(async (result) => {
                 console.log(result.user)
-
+                navigate(from)
                 // post and update user info
                 const userInfo = {
                     email:data.email,
@@ -62,6 +65,7 @@ const Register = () => {
                     last_login:new Date().toISOString(),
                 }
                 const res = await axiosInstance.post('/users',userSocialInfo)
+                navigate(from)
                 console.log('updated user info',res.data)
 
             })
@@ -160,7 +164,7 @@ const Register = () => {
                                 <p className='text-red-500' role="alert">Password is required</p>
                             )}
                         </div>
-
+                            
                         <button className="btn btn-primary w-full text-white tracking-wide">
                             Register
                         </button>

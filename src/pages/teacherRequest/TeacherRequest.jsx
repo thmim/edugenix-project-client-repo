@@ -4,11 +4,13 @@ import { FaUserTie } from 'react-icons/fa';
 import useAuth from '../../hooks/useAuth';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router';
 
 const TeacherRequest = () => {
     const { register, handleSubmit, reset } = useForm();
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
+    const navigate = useNavigate();
 
     const onSubmit = async (data) => {
         const application = {
@@ -31,10 +33,11 @@ const TeacherRequest = () => {
                 Swal.fire({
                     icon: 'success',
                     title: 'Application Submitted!',
-                    text: 'Thank you for applying as an instructor.',
+                    text: 'Thank you for applying.Wait for Approve.',
                     timer: 2000,
                     showConfirmButton: false,
                 });
+                navigate('/')
                 reset();
             }
         } catch (error) {

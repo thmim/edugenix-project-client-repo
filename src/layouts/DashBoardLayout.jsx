@@ -9,7 +9,10 @@ import {
   FaBookOpen,
 
 } from 'react-icons/fa';
+import useUserRole from '../hooks/useUserRole';
 const DashBoardLayout = () => {
+  const {role,roleLoading} = useUserRole();
+  
   return (
     <div className="drawer lg:drawer-open p-5">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -55,7 +58,10 @@ const DashBoardLayout = () => {
               Home
             </NavLink>
           </li>
-          <li>
+          {/* admin dashboard */}
+          { !roleLoading && role === 'admin' &&
+            <>
+            <li>
             <NavLink to="/dashboard/teacher-requests" className={({ isActive }) => isActive ? 'bg-blue-300 rounded-md' : ''}>
               <FaUserTie className="text-green-600 text-lg" />
               Teacher Requests
@@ -76,13 +82,12 @@ const DashBoardLayout = () => {
             </NavLink>
           </li>
 
-          <li>
-            <NavLink to="/dashboard/my-class" className={({ isActive }) => isActive ? 'bg-green-200 rounded-md' : ''}>
-              <FaChalkboardTeacher className="text-indigo-600 text-lg" />
-              My Class
-            </NavLink>
-          </li>
-          <li>
+            </>
+          }
+          
+          { !roleLoading && role === 'student' &&
+            <>
+            <li>
             <NavLink
               to="/dashboard/my-enroll-class"
               className={({ isActive }) =>
@@ -93,6 +98,17 @@ const DashBoardLayout = () => {
               My Enroll Class
             </NavLink>
           </li>
+            </>
+          }
+
+          { !roleLoading && role === 'teacher' &&
+            <>
+            <li>
+            <NavLink to="/dashboard/my-class" className={({ isActive }) => isActive ? 'bg-green-200 rounded-md' : ''}>
+              <FaChalkboardTeacher className="text-indigo-600 text-lg" />
+              My Class
+            </NavLink>
+          </li>
 
           <li>
             <NavLink to="/dashboard/addClass" className={({ isActive }) => isActive ? 'bg-green-200 rounded-md' : ''}>
@@ -101,6 +117,8 @@ const DashBoardLayout = () => {
             </NavLink>
           </li>
 
+            </>
+          }
           <li>
             <NavLink to="/dashboard/profile" className={({ isActive }) => isActive ? 'bg-blue-300 rounded-md' : ''}>
               <FaUserCircle className="text-gray-600 text-lg" />

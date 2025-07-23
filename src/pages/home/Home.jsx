@@ -6,6 +6,7 @@ import HowItWorks from './HowItWorks';
 import FeedBack from './reviews/FeedBack';
 import PopularClasses from './highlightclass/PopularClasses';
 import HomePageStats from './stats/HomePageStats';
+import Mission from './Mission';
 
 const Home = () => {
     return (
@@ -17,6 +18,7 @@ const Home = () => {
             <HowItWorks></HowItWorks>
             <HomePageStats></HomePageStats>
             <FeedBack></FeedBack>
+            <Mission></Mission>
         </div>
     );
 };

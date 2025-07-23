@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 
 const Logout = () => {
     const {user,logout} = useAuth();
-        
+    console.log(user)    
       const handleLogout = () =>{
             logout()
             .then(()=>{
