@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaChalkboardTeacher, FaMoneyBillWave, FaGlobe } from 'react-icons/fa';
 import teacherImage from '../../../assets/teacher.jpg'
+import { Link } from 'react-router';
 const InspireTeacher = () => {
     return (
         <div className="w-11/12 mx-auto bg-white py-16 px-4 md:px-20 flex flex-col md:flex-row items-center gap-10">
@@ -30,9 +31,11 @@ const InspireTeacher = () => {
                     </div>
                 </div>
 
+                <Link to="/teacherApply">
                 <button className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full font-semibold transition-all">
                     Become a Teacher
                 </button>
+                </Link>
             </div>
 
             {/* Right Section - Image */}

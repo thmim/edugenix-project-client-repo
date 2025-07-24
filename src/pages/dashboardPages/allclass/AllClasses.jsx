@@ -1,41 +1,69 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
-import { Link } from 'react-router';
+import { Link, useLoaderData } from 'react-router';
 
 const AllClasses = () => {
     const axiosSecure = useAxiosSecure();
+    const {count} = useLoaderData();
+    const [currentPage,setCurrentPage] = useState(0)
+    const [itemsPerPage,setItemsPerPage] = useState(3)
+    const numberofPages = Math.ceil(count/itemsPerPage)
+    const pages = [];
+    for(let i=0; i<numberofPages;i++){
+      pages.push(i)
+    }
+
+    const handleItemsPerPage = e=>{
+        const val = parseInt(e.target.value)
+        console.log(val)
+        setItemsPerPage(val)
+        setCurrentPage(0)
+    }
+
+    const handlePreviousPage = () =>{
+        if(currentPage > 0){
+            setCurrentPage(currentPage - 1)
+        }
+    }
+    const handleNextPage = () =>{
+        if(currentPage < pages.length -1){
+            setCurrentPage(currentPage + 1)
+        }
+    }
 
     // Fetch all classes
     const { data: classes = [], refetch } = useQuery({
-        queryKey: ['all-classes'],
+        queryKey: ['all-classes',currentPage, itemsPerPage],
         queryFn: async () => {
-            const res = await axiosSecure.get('/classes');
+            const res = await axiosSecure.get(`/classes?page=${currentPage}&size=${itemsPerPage}`);
             return res.data;
         }
     });
 
     const handleApprove = async (id) => {
         try {
-            const res = await axiosSecure.patch(`/classes/${id}`, { status: 'approved' });
+            const res = await axiosSecure.patch(`/classes/status/${id}`, { status: 'approved' });
             if (res.data.modifiedCount > 0) {
                 Swal.fire('Approved!', 'Class has been approved.', 'success');
                 refetch();
             }
         } catch (err) {
+            console.log(err)
             Swal.fire('Error!', 'Could not approve.', 'error');
         }
     };
 
     const handleReject = async (id) => {
         try {
-            const res = await axiosSecure.patch(`/classes/${id}`, { status: 'rejected' });
+            const res = await axiosSecure.patch(`/classes/status/${id}`, { status: 'rejected' });
             if (res.data.modifiedCount > 0) {
                 Swal.fire('Rejected!', 'Class has been rejected.', 'info');
                 refetch();
             }
         } catch (err) {
+            console.log(err)
             Swal.fire('Error!', 'Could not reject.', 'error');
         }
     };
@@ -62,19 +90,19 @@ const AllClasses = () => {
                                 <img src={cls.image} alt="class" className="w-16 h-12 object-cover rounded" />
                             </td>
                             <td className="px-4 py-3">{cls.email}</td>
-                            <td className="px-4 py-3">{cls.description.slice(0, 50)}...</td>
+                            <td className="px-4 py-3">{cls.description ? cls.description.slice(0, 50) + '...' : 'No description'}...</td>
                             <td className="px-4 py-3 flex items-center space-x-2 text-center">
                                 <button
                                     onClick={() => handleApprove(cls._id)}
                                     className="px-3 py-1 bg-green-600 text-white text-sm rounded hover:bg-green-700"
-                                    disabled={cls.status === 'approved'}
+                                    disabled={cls.status === 'approved' || cls.status === 'rejected'}
                                 >
                                     Approve
                                 </button>
                                 <button
                                     onClick={() => handleReject(cls._id)}
                                     className="px-3 py-1 bg-red-600 text-white text-sm rounded hover:bg-red-700"
-                                    disabled={cls.status === 'rejected'}
+                                    disabled={cls.status === 'approved' || cls.status === 'rejected'}
                                 >
                                     Reject
                                 </button>
@@ -95,6 +123,27 @@ const AllClasses = () => {
                     ))}
                 </tbody>
             </table>
+            <div className="pagination flex items-center justify-center mt-4 gap-2">
+                <button onClick={handlePreviousPage}>previous</button>
+                {
+                    pages.map(page =>
+                         <button
+                        key={page}
+                        onClick={()=>setCurrentPage(page)} 
+                        className={currentPage === page ? 'selected':''}>
+                        {page}
+                        </button>)
+                }
+                <button onClick={handleNextPage}>Next</button>
+                <select value={itemsPerPage} onChange={handleItemsPerPage} name="" id="">
+                    <option value="3">3</option>
+                    <option value="6">6</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                </select>
+                
+            </div>
         </div>
     );
 };

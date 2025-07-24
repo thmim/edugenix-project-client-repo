@@ -89,7 +89,7 @@ const AddClass = () => {
             createdAt: new Date().toISOString(),
             assignment_count:0,
         };
-
+console.log(classData)
         addClass(classData);
     };
 

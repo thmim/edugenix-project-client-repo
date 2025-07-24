@@ -1,5 +1,6 @@
 import React from 'react';
 import missionimg from '../../assets/graduates.jpg'
+import { Link } from 'react-router';
 const Mission = () => {
   return (
     <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-16 px-4 sm:px-6 lg:px-8">
@@ -23,6 +24,9 @@ const Mission = () => {
               <p className="text-gray-600 text-base md:text-lg leading-relaxed">
                 We are committed to bridging the gap between aspiring learners and expert educators, offering a diverse range of courses designed to meet the evolving demands of the modern world. Our goal is to inspire lifelong learning and create a positive impact on society through education.
               </p>
+              <Link to="/login">
+              <button className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition mb-6">Join US</button>
+              </Link>
               
             </div>
 

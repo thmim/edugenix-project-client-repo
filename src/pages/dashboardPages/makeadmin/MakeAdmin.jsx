@@ -17,12 +17,15 @@ const MakeAdmin = () => {
             const res = await axiosSecure.get(`/users/search?email=${searchQuery}`);
             return res.data;
         },
-        enabled: !!searchQuery && triggerSearch, // only run when triggerSearch is true
+        enabled: !!searchQuery && triggerSearch,
     });
 
     // Make Admin Mutation
     const makeAdminMutation = useMutation({
-        mutationFn: (id) => axiosSecure.patch(`/users/${id}/make-admin`),
+        mutationFn: async (id) =>  {
+            console.log(id)
+           await axiosSecure.patch(`/users/${id}/make-admin`)},
+        
         onSuccess: () => {
             Swal.fire('Success', 'Admin selected!', 'success');
             refetch()
@@ -54,7 +57,7 @@ const MakeAdmin = () => {
                     value={searchQuery}
                     onChange={(e) => {
                         setSearchQuery(e.target.value);
-                        setTriggerSearch(false); // prevent query auto-firing until button clicked
+                        setTriggerSearch(false);
                     }}
                     className="border px-4 py-2 rounded w-full"
                 />
@@ -101,7 +104,7 @@ const MakeAdmin = () => {
                                         {user.role === 'admin' ? (
                                             <button
                                                 onClick={() => removeAdminMutation.mutate(user._id)}
-                                                disabled={removeAdminMutation.isPending}
+                                                // disabled={removeAdminMutation.isPending}
                                                 className="bg-red-500 text-white px-3 py-1 rounded disabled:opacity-60"
                                             >
                                                 Remove Admin
@@ -109,7 +112,7 @@ const MakeAdmin = () => {
                                         ) : (
                                             <button
                                                 onClick={() => makeAdminMutation.mutate(user._id)}
-                                                disabled={makeAdminMutation.isPending}
+                                                // disabled={makeAdminMutation.isPending}
                                                 className="bg-blue-600 text-white px-3 py-1 rounded disabled:opacity-60"
                                             >
                                                 Make Admin

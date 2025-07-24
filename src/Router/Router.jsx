@@ -80,6 +80,7 @@ export const router = createBrowserRouter([
       },
       {
         path:"teacher-requests",
+        loader:()=>fetch('http://localhost:3000/allTeachersCount'),
         element:<AdminRoute><PendingTeacher></PendingTeacher></AdminRoute>
       },
       {
@@ -105,7 +106,8 @@ export const router = createBrowserRouter([
       },
       {
         path:"all-classes",
-        element:<AdminRoute><AllClasses></AllClasses></AdminRoute>
+        element:<AdminRoute><AllClasses></AllClasses></AdminRoute>,
+        loader:()=>fetch('http://localhost:3000/totalClassCount')
       },
       
       {

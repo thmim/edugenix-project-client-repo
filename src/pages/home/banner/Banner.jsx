@@ -1,6 +1,7 @@
 import React from 'react';
 import bannerImage from '../../../assets/banner image.jpg'
 import {  FaBookOpen, FaSearch } from 'react-icons/fa';
+import { Link } from 'react-router';
 const Banner = () => {
     return (
          <div className="w-full min-h-[80vh] bg-[#f0fdf4] py-10 px-4 md:px-16 flex flex-col-reverse md:flex-row items-center justify-between gap-10">
@@ -18,10 +19,12 @@ const Banner = () => {
                     Master the skills you need to grow with thousands of expert-led courses and hands-on projects. All in one place.
                 </p>
 
-                {/* CTA Button */}
+                {/*  Button */}
+                <Link to="/allPaidClasses">
                 <button className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition mb-6">
                     Browse Courses
                 </button>
+                </Link>
 
                 {/* Search Bar */}
                 <div className="w-full max-w-xl mx-auto md:mx-0">
@@ -44,13 +47,13 @@ const Banner = () => {
                 <img src={bannerImage} alt="Banner" className="max-w-[300px] md:max-w-[400px] lg:max-w-[480px] w-full h-auto" />
 
                 {/* Course Count Badge */}
-                <div className="absolute top-4 md:top-8 left-4 md:left-8 bg-blue-600 text-white px-4 py-3 rounded-full shadow-lg flex items-center gap-3 text-sm md:text-base">
+                {/* <div className="absolute top-4 md:top-8 left-4 md:left-8 bg-blue-600 text-white px-4 py-3 rounded-full shadow-lg flex items-center gap-3 text-sm md:text-base">
                     <FaBookOpen className="text-xl" />
                     <div>
                         <div className="font-bold text-lg">2,500+</div>
                         <div className="text-xs">Expert Courses</div>
                     </div>
-                </div>
+                </div> */}
 
             </div>
         </div>
