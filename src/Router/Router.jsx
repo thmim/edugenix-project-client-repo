@@ -43,7 +43,7 @@ export const router = createBrowserRouter([
         {
           path:"allPaidClasses",
           loader:()=>fetch('https://my-edugenix-project-server-site.vercel.app/allApproveClassCount'),
-          Component:AllPaidClasses,
+          element:<PrivateRoute><AllPaidClasses></AllPaidClasses></PrivateRoute>,
           hydrateFallbackElement:<Loading></Loading>
         },
         {
