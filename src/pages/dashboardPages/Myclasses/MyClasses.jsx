@@ -6,11 +6,10 @@ import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { Link } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
 
-
-
 const MyClasses = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
+
     const { data: classes = [], refetch } = useQuery({
         queryKey: ['my-classes', user?.email],
         queryFn: async () => {
@@ -19,6 +18,8 @@ const MyClasses = () => {
         },
         enabled: !!user?.email,
     });
+    // console.log(classes)
+
 
     const handleDelete = async (id) => {
         const confirm = await Swal.fire({
@@ -104,6 +105,7 @@ const MyClasses = () => {
             {classes.length === 0 && (
                 <p className="text-center text-gray-600 mt-12">You haven't added any classes yet.</p>
             )}
+            
         </div>
     );
 };

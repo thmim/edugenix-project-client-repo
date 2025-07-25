@@ -5,10 +5,13 @@ import useAuth from '../../hooks/useAuth';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router';
+import useUserRole from '../../hooks/useUserRole';
+import Loading from '../shared/loading/Loading';
 
 const TeacherRequest = () => {
     const { register, handleSubmit, reset } = useForm();
     const { user } = useAuth();
+    const {role,roleLoading} = useUserRole();
     const axiosSecure = useAxiosSecure();
     const navigate = useNavigate();
 
@@ -49,6 +52,30 @@ const TeacherRequest = () => {
             });
         }
     };
+    if (roleLoading) {
+        return <Loading />;
+    }
+
+    // if user is teacher or admin
+    if (role === 'teacher' || role === 'admin') {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
+                <div className="bg-white shadow-lg rounded-2xl p-8 max-w-md w-full text-center border border-gray-200">
+                    <FaUserTie className="text-blue-600 text-6xl mx-auto mb-4" />
+                    <h2 className="text-3xl font-bold text-gray-800 mb-3">You're Already an Instructor!</h2>
+                    <p className="text-gray-600 text-lg mb-6">
+                        Thank you for your interest. You are already registered as an {role} on our platform.
+                    </p>
+                    <button
+                        onClick={() => navigate('/dashboard')}
+                        className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-semibold transition duration-300 transform hover:scale-105"
+                    >
+                        Go to Dashboard
+                    </button>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="w-full min-h-screen flex items-center justify-center bg-gray-100 px-4 py-10">

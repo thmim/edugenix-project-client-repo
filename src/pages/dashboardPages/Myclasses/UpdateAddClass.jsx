@@ -2,12 +2,16 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaPlusCircle } from 'react-icons/fa';
-import { useLoaderData } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import { useQuery } from '@tanstack/react-query';
+import Loading from '../../shared/loading/Loading';
 
 const UpdateAddClass = () => {
-    const { title, name, email, price, description,image,_id } = useLoaderData();
+    // const { title, name, email, price, description,image,_id } = useLoaderData();
+    const {id} = useParams();
+    const navigate = useNavigate();
     const [classImage, setClassImage] = useState('');
     const axiosSecure = useAxiosSecure();
     const {
@@ -16,6 +20,33 @@ const UpdateAddClass = () => {
         
 
     } = useForm();
+
+    // get previous added class data(before update)
+    const { data: previousClassInfo = {} ,isLoading, error, refetch } = useQuery({
+        queryKey: ['previous-classes'],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/my-classes/${id}`);
+            return res.data;
+        },
+        enabled: !!id
+    });
+    if (isLoading) {
+        return <Loading />;
+    }
+
+    
+    if (error) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-red-50 p-6">
+                <p className="text-xl font-semibold text-red-500">
+                    Error loading class data: {error.message}
+                </p>
+            </div>
+        );
+    }
+    console.log(previousClassInfo)
+    const {title, name, email, price, description,image,_id} = previousClassInfo;
+
     // for upload image
     const handleImageUpload = async (e) => {
         const image = e.target.files[0];
@@ -51,6 +82,8 @@ const UpdateAddClass = () => {
                 title: 'Updated!',
                 text: 'Class info updated successfully.',
             });
+            refetch()
+            navigate('/dashboard/my-class')
         } else {
             Swal.fire({
                 icon: 'info',
@@ -85,7 +118,7 @@ const UpdateAddClass = () => {
                             {...register('title')}
                             className="w-full border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring focus:border-blue-500"
                             placeholder="e.g., Web Development Basics"
-                            defaultValue={title}
+                            defaultValue={title || ''}
                         />
 
                     </div>
@@ -95,7 +128,7 @@ const UpdateAddClass = () => {
                         <label className="block mb-1 font-medium">Instructor Name</label>
                         <input
                             type="text"
-                            value={name}
+                            value={name || ''}
                             readOnly
                             {...register('name')}
                             className="w-full bg-gray-100 border border-gray-300 px-4 py-2 rounded"
@@ -107,7 +140,7 @@ const UpdateAddClass = () => {
                         <label className="block mb-1 font-medium">Email</label>
                         <input
                             type="email"
-                            value={email}
+                            value={email || ''}
                             readOnly
                             {...register('email')}
                             className="w-full bg-gray-100 border border-gray-300 px-4 py-2 rounded"
@@ -123,7 +156,7 @@ const UpdateAddClass = () => {
                             {...register('price')}
                             className="w-full border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring focus:border-blue-500"
                             placeholder="e.g., 49.99"
-                            defaultValue={price}
+                            defaultValue={price || ''}
                         />
 
                     </div>
@@ -148,7 +181,7 @@ const UpdateAddClass = () => {
                         <textarea
                             {...register('description')}
                             rows="4"
-                            defaultValue={description}
+                            defaultValue={description || ''}
                             className="w-full border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring focus:border-blue-500"
                             placeholder="Brief class description..."
                         ></textarea>

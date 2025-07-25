@@ -4,6 +4,7 @@ import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import Loading from '../../shared/loading/Loading';
 import { FaEnvelope, FaUser, FaUserTag } from 'react-icons/fa';
+import { FaPhoneVolume } from 'react-icons/fa6';
 
 const Profile = () => {
     const {user} = useAuth();
@@ -54,6 +55,10 @@ const Profile = () => {
           <p className="flex items-center gap-4 text-lg md:text-xl">
             <FaUserTag className="text-green-500 text-2xl" />
             <span className="text-gray-700 capitalize">{userData.role || 'N/A'}</span>
+          </p>
+          <p className="flex items-center gap-4 text-lg md:text-xl">
+            <FaPhoneVolume className="text-green-500 text-2xl" />
+            <span className="text-gray-700 capitalize">{userData.phone || 'N/A'}</span>
           </p>
         </div>
       </div>

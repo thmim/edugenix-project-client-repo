@@ -262,6 +262,7 @@ const Register = () => {
                 role: "student",
                 created_at: new Date().toISOString(),
                 last_login: new Date().toISOString(),
+                phone: data.phone || '',
             };
             const userRes = await axiosInstance.post('/users', userInfo);
             console.log('User Info Posted to DB:', userRes.data);
@@ -274,7 +275,7 @@ const Register = () => {
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'OK'
             });
-            navigate(from);
+           
 
         } catch (error) {
             console.error("Registration or DB update failed:", error);
@@ -306,6 +307,7 @@ const Register = () => {
                 role: "student",
                 created_at: new Date().toISOString(),
                 last_login: new Date().toISOString(),
+                phone: '',
             };
             const res = await axiosInstance.post('/users', userSocialInfo);
             console.log('Social User Info Posted to DB:', res.data);
@@ -383,6 +385,17 @@ const Register = () => {
                             {errors.email && (
                                 <p className='text-red-500 text-sm mt-1' role="alert">{errors.email.message}</p>
                             )}
+                        </div>
+                        {/* Phone Number Field */}
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number (Optional)</label>
+                            <input
+                                {...register('phone')}
+                                type="tel"
+                                className="input input-bordered w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                placeholder="e.g., +8801XXXXXXXXX"
+                            />
+                            
                         </div>
 
                         <div>

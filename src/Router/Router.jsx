@@ -27,6 +27,7 @@ import Profile from "../pages/dashboardPages/userProfile/Profile";
 import Forbidden from "../pages/Forbidden/Forbidden";
 import AdminRoute from "../routes/AdminRoute";
 import DashBoardHome from "../pages/dashboardPages/dashboardHome/DashBoardHome";
+import Loading from "../pages/shared/loading/Loading";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -41,7 +42,10 @@ export const router = createBrowserRouter([
         },
         {
           path:"allPaidClasses",
-          element:<PrivateRoute><AllPaidClasses></AllPaidClasses></PrivateRoute>
+          loader:()=>fetch('http://localhost:3000/allApproveClassCount'),
+          // element:<PrivateRoute><AllPaidClasses></AllPaidClasses></PrivateRoute>
+          Component:AllPaidClasses,
+          hydrateFallbackElement:<Loading></Loading>
         },
         {
           path:"enroll/:id",
@@ -81,7 +85,8 @@ export const router = createBrowserRouter([
       {
         path:"teacher-requests",
         loader:()=>fetch('http://localhost:3000/allTeachersCount'),
-        element:<AdminRoute><PendingTeacher></PendingTeacher></AdminRoute>
+        element:<AdminRoute><PendingTeacher></PendingTeacher></AdminRoute>,
+        hydrateFallbackElement:<Loading></Loading>
       },
       {
         path:"addClass",
@@ -101,13 +106,15 @@ export const router = createBrowserRouter([
       },
       {
         path:"updateAddClass/:id",
-        loader:({params})=>fetch(`http://localhost:3000/my-classes/${params.id}`),
-        Component:UpdateAddClass
+        // loader:({params})=>fetch(`http://localhost:3000/my-classes/${params.id}`),
+        Component:UpdateAddClass,
+        hydrateFallbackElement:<Loading></Loading>
       },
       {
         path:"all-classes",
         element:<AdminRoute><AllClasses></AllClasses></AdminRoute>,
-        loader:()=>fetch('http://localhost:3000/totalClassCount')
+        loader:()=>fetch('http://localhost:3000/totalClassCount'),
+        hydrateFallbackElement:<Loading></Loading>
       },
       
       {

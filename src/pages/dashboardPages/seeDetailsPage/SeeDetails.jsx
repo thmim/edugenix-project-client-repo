@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useParams } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
+import useUserRole from '../../../hooks/useUserRole';
 
 const SeeDetails = () => {
     const {id} = useParams();
@@ -14,6 +15,7 @@ const SeeDetails = () => {
     const [isOpen, setIsOpen] = useState(false);
     const queryClient = useQueryClient();
     const axiosSecure = useAxiosSecure();
+    const {role} = useUserRole();
     console.log(id)
     const {
         register,
@@ -87,26 +89,28 @@ const SeeDetails = () => {
             <h2 className="text-5xl text-gray-900 font-bold mb-6">Class Progress Data</h2>
             {/* ======== Class Progress Section ======== */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div className="bg-white shadow-md rounded-lg p-6 text-center border border-gray-200">
-                    <h3 className="text-sm text-gray-500 mb-2">Total Enrollments</h3>
+                <div className="bg-amber-100 shadow-md rounded-lg p-6 text-center border border-gray-200">
+                    <h3 className="text-sm font-bold text-gray-500 mb-2">Total Enrollments</h3>
                     <p className="text-3xl font-semibold text-blue-600">{classDetails.enrollmentCount}</p>
                 </div>
-                <div className="bg-white shadow-md rounded-lg p-6 text-center border border-gray-200">
-                    <h3 className="text-sm text-gray-500 mb-2">Total Assignments</h3>
+                <div className="bg-blue-200 shadow-md rounded-lg p-6 text-center border border-gray-200">
+                    <h3 className="text-sm font-bold text-gray-500 mb-2">Total Assignments</h3>
                     <p className="text-3xl font-semibold text-green-600">{classDetails.assignmentCount}</p>
                 </div>
-                <div className="bg-white shadow-md rounded-lg p-6 text-center border border-gray-200">
-                    <h3 className="text-sm text-gray-500 mb-2">Total Submissions</h3>
+                <div className="bg-indigo-100 shadow-md rounded-lg p-6 text-center border border-gray-200">
+                    <h3 className="text-sm font-bold text-gray-500 mb-2">Total Submissions</h3>
                     <p className="text-3xl font-semibold text-purple-600">{classDetails.totalSubmissionCount}</p>
                 </div>
             </div>
 
-            <button
-                onClick={() => setIsOpen(true)}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
-            >
-                <FaPlus /> Create Assignment
-            </button>
+            {role !== 'admin' && (
+                        <button
+                            onClick={() => setIsOpen(true)}
+                            className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-full font-bold text-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300"
+                        >
+                            <FaPlus className="mr-3 text-2xl" /> Create Assignment
+                        </button>
+                    )}
 
             <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
                 <div className="fixed inset-0 bg-black/30" aria-hidden="true" />

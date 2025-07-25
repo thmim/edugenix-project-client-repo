@@ -1,15 +1,46 @@
 import { useQuery } from '@tanstack/react-query';
-import useAxiosSecure from '../../hooks/useAxiosSecure';
-import { Link } from 'react-router';
+import { Link, useLoaderData } from 'react-router';
 import Loading from '../shared/loading/Loading';
+import { useState } from 'react';
+// import useAxios from '../../hooks/useAxios';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 const AllPaidClasses = () => {
+  // const axiosInstance = useAxios();
   const axiosSecure = useAxiosSecure();
+  // pagination
+  const {count} = useLoaderData();
+    const [currentPage,setCurrentPage] = useState(0)
+    const [itemsPerPage,setItemsPerPage] = useState(3)
+    const numberofPages = Math.ceil(count/itemsPerPage)
+    const pages = [];
+    for(let i=0; i<numberofPages;i++){
+      pages.push(i)
+    }
+
+    const handleItemsPerPage = e=>{
+        const val = parseInt(e.target.value)
+        console.log(val)
+        setItemsPerPage(val)
+        setCurrentPage(0)
+    }
+
+    const handlePreviousPage = () =>{
+        if(currentPage > 0){
+            setCurrentPage(currentPage - 1)
+        }
+    }
+    const handleNextPage = () =>{
+        if(currentPage < pages.length -1){
+            setCurrentPage(currentPage + 1)
+        }
+    }
+
 
   const { data: classes = [], isLoading } = useQuery({
-    queryKey: ['approvedClasses'],
+    queryKey: ['approvedClasses',currentPage, itemsPerPage],
     queryFn: async () => {
-      const res = await axiosSecure.get('/approvedclasses');
+      const res = await axiosSecure.get(`/approvedclasses?page=${currentPage}&size=${itemsPerPage}`);
       return res.data;
     }
   });
@@ -44,6 +75,28 @@ const AllPaidClasses = () => {
           </div>
         ))}
       </div>
+      {/* pagination */}
+      <div className="pagination flex items-center justify-center mt-4 gap-2">
+                <button onClick={handlePreviousPage}>previous</button>
+                {
+                    pages.map(page =>
+                         <button
+                        key={page}
+                        onClick={()=>setCurrentPage(page)} 
+                        className={currentPage === page ? 'selected':''}>
+                        {page}
+                        </button>)
+                }
+                <button onClick={handleNextPage}>Next</button>
+                <select value={itemsPerPage} onChange={handleItemsPerPage} name="" id="">
+                    <option value="3">3</option>
+                    <option value="6">6</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                </select>
+                
+            </div>
     </div>
   );
 };
