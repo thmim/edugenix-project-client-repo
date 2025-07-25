@@ -35,10 +35,6 @@ const MyEnrollClass = () => {
     );
   }
 
-  //  const handleContinue = (courseTitle) => {
-  //   console.log(`Continuing to class: ${courseTitle}`);
-  //     };
-      // console.log(enrolledClasses)
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6 sm:p-8 lg:p-10">
@@ -87,9 +83,7 @@ const MyEnrollClass = () => {
                 </p>
 
                                 <div className="text-gray-600 text-sm mb-4 space-y-1">
-                  {/* <p>
-                    <span className="font-semibold">Transaction ID:</span> {cls.transactionId ? cls.transactionId.substring(0, 10) + '...' : 'N/A'}
-                  </p> */}
+                  
                   <p className="font-bold">
                     Amount Paid:
                     <span className='font-bold text-blue-500'> ${cls.amount ? cls.amount.toFixed(2) : 'N/A'}</span>

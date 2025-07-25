@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Autoplay, Navigation } from 'swiper/modules'; // Modules for pagination, autoplay, navigation
+import { Pagination, Autoplay, Navigation } from 'swiper/modules'; 
 import { FaStar } from 'react-icons/fa';
 import { useQuery } from '@tanstack/react-query';
 import Loading from '../../shared/loading/Loading';

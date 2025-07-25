@@ -9,7 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 import Loading from '../../shared/loading/Loading';
 
 const UpdateAddClass = () => {
-    // const { title, name, email, price, description,image,_id } = useLoaderData();
+   
     const {id} = useParams();
     const navigate = useNavigate();
     const [classImage, setClassImage] = useState('');

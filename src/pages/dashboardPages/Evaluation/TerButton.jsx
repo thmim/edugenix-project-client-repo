@@ -89,7 +89,7 @@ const TerButton = ({courseId}) => {
                         <h2 className="text-xl font-bold mb-4 text-center">Teaching Evaluation Report</h2>
                         <form onSubmit={handleSubmit(handleTERSubmit)} className="space-y-4">
                             <div>
-                                <label className="block mb-1 text-gray-700">Rating</label>
+                                <label className="block mb-1 text-gray-700 text-2xl font-bold">Rating</label>
                                 <div className="flex justify-center">
                                     <Rating
                                         style={{ maxWidth: 250 }}

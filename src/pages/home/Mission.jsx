@@ -10,7 +10,6 @@ const Mission = () => {
           On a mission to teach Millions
         </h2>
 
-        {/* Main Card containing both Image and Description */}
         <div className="bg-white rounded-3xl shadow-2xl border border-gray-200 overflow-hidden transform transition-transform duration-300 hover:scale-[1.01]">
           <div className="flex flex-col lg:flex-row items-center justify-center">
             {/* Left Side: Mission Description */}
@@ -35,7 +34,7 @@ const Mission = () => {
               <img
                 src={missionimg}
                 alt="Our Mission - Empowering Education"
-                className="rounded-2xl shadow-lg w-full h-auto object-cover max-h-[400px] lg:max-h-[500px]" // Adjusted max-heights and removed border/rotation
+                className="rounded-2xl shadow-lg w-full h-auto object-cover max-h-[400px] lg:max-h-[500px]" 
               />
             </div>
           </div>

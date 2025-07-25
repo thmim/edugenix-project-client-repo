@@ -14,8 +14,8 @@ const HomePageStats = () => {
       const res = await axiosInstance.get('/total-count');
       return res.data;
     },
-    staleTime: 10 * 60 * 1000,
-    cacheTime: 60 * 60 * 1000,
+    // staleTime: 10 * 60 * 1000,
+    // cacheTime: 60 * 60 * 1000,
   });
 
   if (isLoading) {

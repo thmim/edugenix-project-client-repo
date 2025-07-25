@@ -2,11 +2,10 @@ import { useQuery } from '@tanstack/react-query';
 import { Link, useLoaderData } from 'react-router';
 import Loading from '../shared/loading/Loading';
 import { useState } from 'react';
-// import useAxios from '../../hooks/useAxios';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 const AllPaidClasses = () => {
-  // const axiosInstance = useAxios();
+ 
   const axiosSecure = useAxiosSecure();
   // pagination
   const {count} = useLoaderData();

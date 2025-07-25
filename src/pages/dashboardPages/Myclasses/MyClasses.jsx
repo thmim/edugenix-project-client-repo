@@ -18,7 +18,6 @@ const MyClasses = () => {
         },
         enabled: !!user?.email,
     });
-    // console.log(classes)
 
 
     const handleDelete = async (id) => {
@@ -70,7 +69,7 @@ const MyClasses = () => {
                                 <Link to={`/dashboard/updateAddClass/${cls._id}`}>
                                 <button
                                     className="flex items-center gap-1 px-3 py-1 text-sm text-white bg-blue-600 rounded hover:bg-blue-700"
-                                // onClick={() => handleUpdate(cls._id)}
+                                
                                 >
                                     <FaEdit /> Update
                                 </button>
