@@ -32,4 +32,35 @@ Edugenix is a modern and user-friendly e-learning platform designed to help stud
 - **Auth:** Firebase Authentication
 - **Tools:** SweetAlert2, Axios, Lottie, React Hook Form
 
+🎓 Edugenix E-Learning Platform –
+How to Use
+1️⃣ Sign Up / Log In
+Create an account as a Student, Teacher, or Admin (role assigned based on registration or admin approval).
+
+2️⃣ For Teachers
+Go to Apply for Teaching to submit a course proposal.
+
+Wait for Admin approval before your course goes live.
+
+3️⃣ For Admins
+Review teacher applications.
+
+Approve or reject course proposals.
+
+Monitor platform activity.
+
+4️⃣ For Students
+Browse available courses from the Course Catalog.
+
+Select a course, make payment (if applicable), and start learning.
+
+5️⃣ Manage Your Role Tasks
+Teachers can edit courses and track enrollments.
+
+Students can view purchased courses in My Courses.
+
+Admins oversee all platform operations.
+
+✅ Start learning, teaching, or managing with Edugenix!
+
 
