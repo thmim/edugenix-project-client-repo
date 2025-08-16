@@ -10,7 +10,7 @@ import Mission from './Mission';
 
 const Home = () => {
     return (
-        <div>
+        <div className='bg-background'>
             <Banner></Banner>
             <Colaborators></Colaborators>
             <InspireTeacher></InspireTeacher>

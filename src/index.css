@@ -2,8 +2,21 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+
+/* Light Theme (Default) */
+@theme {
+  --background-color: #F9FAFB;  /* Light gray */
+  --card-bg-color: #FFFFFF;     /* White cards */
+  --text-primary-color: #111827;
+  --text-secondary-color: #6B7280;
+  --primary-color: #1E3A8A;
+  --accent-color: #FBBF24;
+}
+
+
 a.active{
-    @apply bg-green-300
+    @apply bg-accent
+    
 }
 
 .font-urbanist {

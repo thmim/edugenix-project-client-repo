@@ -3,7 +3,6 @@ import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
-
 import Swal from 'sweetalert2';
 import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
