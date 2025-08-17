@@ -4,7 +4,7 @@ import teacherImage from '../../../assets/teacher.jpg'
 import { Link } from 'react-router';
 const InspireTeacher = () => {
     return (
-        <div className="w-11/12 mx-auto bg-white py-16 px-4 md:px-20 flex flex-col md:flex-row items-center gap-10">
+        <div className="max-w-7xl mx-auto bg-white py-16 flex flex-col md:flex-row items-center justify-between gap-10">
             {/* Left Section - Text */}
             <div className="flex-1 text-center md:text-left">
                 <p className="text-green-600 font-medium text-sm mb-2 uppercase">Inspire. Educate. Earn</p>

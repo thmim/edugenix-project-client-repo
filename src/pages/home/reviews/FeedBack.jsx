@@ -53,7 +53,7 @@ const FeedBack = () => {
 
   return (
     <div className="max-w-5xl mx-auto py-10 px-4">
-      <h2 className="text-4xl font-extrabold text-center mb-12 text-blue-700 drop-shadow-md">
+      <h2 className="text-4xl font-bold text-center mb-12 drop-shadow-md">
         What Our Students Say
       </h2>
 
@@ -69,7 +69,7 @@ const FeedBack = () => {
         }}
         pagination={{ clickable: true }} 
         navigation={true}
-        className="mySwiper p-4 rounded-3xl shadow-2xl bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100" 
+        className="mySwiper p-4 rounded-3xl shadow-2xl border-blue-100" 
       >
         {allreviews.map((review) => (
           <SwiperSlide key={review._id} className="py-8 px-4"> 

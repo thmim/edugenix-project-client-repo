@@ -4,11 +4,11 @@ import { Fade, Zoom } from 'react-awesome-reveal';
 
 const HowItWorks = () => {
     return (
-        <div className="w-full bg-[#f9fafb] py-16 px-4 md:px-20">
+        <div className="w-full py-16 px-4 md:px-20">
             <div className="max-w-6xl mx-auto text-center">
                 {/* Title Section */}
                 <Fade direction="up" triggerOnce>
-                    <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                    <h2 className="text-4xl md:text-4xl font-bold text-gray-800 mb-4">
                         How EduGenix Works
                     </h2>
                     <p className="text-gray-600 text-md md:text-lg mb-12">

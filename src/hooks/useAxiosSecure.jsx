@@ -3,8 +3,8 @@ import React from 'react';
 import useAuth from './useAuth';
 import { useNavigate } from 'react-router';
 const axiosSecure = axios.create({
-    // baseURL:`https://my-edugenix-project-server-site.vercel.app`
-    baseURL:`http://localhost:3000`
+    baseURL:`https://my-edugenix-project-server-site.vercel.app`
+    
 })
 const useAxiosSecure = () => {
     const {user,logOut} = useAuth();

@@ -24,9 +24,9 @@ const HomePageStats = () => {
 
   if (error) {
     return (
-      <section className="bg-gradient-to-br from-purple-50 to-indigo-100 py-16 px-4 sm:px-6 lg:px-8">
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center text-red-500">
-          <h2 className="text-4xl font-extrabold text-center mb-8 text-gray-800">Our Achievements</h2>
+          <h2 className="text-4xl font-bold text-center mb-8 text-gray-800">Our Achievements</h2>
           <p>Error loading statistics: {error.message}</p>
           <p className="text-gray-500 mt-2">Please try again later.</p>
         </div>
@@ -36,9 +36,9 @@ const HomePageStats = () => {
 
   if (!stats || (stats.totalUsers === undefined && stats.totalClasses === undefined && stats.totalEnrollments === undefined)) {
     return (
-      <section className="bg-gradient-to-br from-purple-50 to-indigo-100 py-16 px-4 sm:px-6 lg:px-8">
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center text-gray-600">
-          <h2 className="text-4xl font-extrabold text-center mb-8 text-gray-800">Our Achievements</h2>
+          <h2 className="text-4xl font-bold text-center mb-8 text-gray-800">Our Achievements</h2>
           <p className="text-lg">Statistics are not available yet. Please check back later!</p>
         </div>
       </section>
@@ -46,9 +46,9 @@ const HomePageStats = () => {
   }
 
   return (
-    <section className="bg-gradient-to-br from-purple-50 to-indigo-100 py-16 px-4 sm:px-6 lg:px-8">
+    <section className="py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-5xl font-extrabold text-center mb-16 text-gray-800 drop-shadow-lg">
+        <h2 className="text-5xl font-bold text-center mb-16 text-gray-800 drop-shadow-lg">
           Our Achievements in Numbers
         </h2>
 

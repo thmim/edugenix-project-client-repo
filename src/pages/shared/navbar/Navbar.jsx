@@ -8,12 +8,12 @@ const Navbar = () => {
   const {user} = useAuth();
     
     const navlinks = <>
-    <li className='font-bold hover:bg-accent rounded'><NavLink to="/">Home</NavLink></li>
-    <li className='font-bold hover:bg-accent rounded'><NavLink to="/allPaidClasses">All Classes</NavLink></li>
-    <li className='font-bold hover:bg-accent rounded'><NavLink to="/teacherApply">Teach on EduGenix</NavLink></li>
+    <li className='font-bold hover:bg-green-300 rounded'><NavLink to="/">Home</NavLink></li>
+    <li className='font-bold hover:bg-green-300 rounded'><NavLink to="/allPaidClasses">All Classes</NavLink></li>
+    <li className='font-bold hover:bg-green-300 rounded'><NavLink to="/teacherApply">Teach on EduGenix</NavLink></li>
     </>
     return (
-        <div className="navbar shadow-sm text-[#F9FAFB] bg-primary">
+        <div className="navbar shadow-sm bg-green-50">
   <div className="navbar-start py-3">
     <div className="dropdown">
       <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">

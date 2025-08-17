@@ -7,7 +7,7 @@ const Banner = () => {
          <div className="w-full min-h-[80vh] py-10 px-4 md:px-16 flex flex-col-reverse md:flex-row items-center justify-between gap-10">
             {/* Left Content */}
             <div className="flex-1 text-center md:text-left">
-                <p className="text-accent font-medium text-sm mb-2">Begin your journey with EduGenix</p>
+                <p className="text-green-600 font-medium text-sm mb-2">Begin your journey with EduGenix</p>
                 <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
                     Learn anytime, anywhere, <br />
                     and shape your <span className="text-blue-600 relative inline-block">

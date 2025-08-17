@@ -3,14 +3,14 @@ import missionimg from '../../assets/graduates.jpg'
 import { Link } from 'react-router';
 const Mission = () => {
   return (
-    <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-16 px-4 sm:px-6 lg:px-8">
+    <section className="py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         {/* Section Heading */}
-        <h2 className="text-5xl font-extrabold text-center mb-16 text-gray-800 drop-shadow-lg">
+        <h2 className="text-4xl font-bold text-center mb-16 drop-shadow-lg">
           On a mission to teach Millions
         </h2>
 
-        <div className="bg-white rounded-3xl shadow-2xl border border-gray-200 overflow-hidden transform transition-transform duration-300 hover:scale-[1.01]">
+        <div className="bg-white rounded-3xl shadow-2xl border border-gray-200 overflow-hidden transform transition-transform duration-300 hover:scale-[1.01] p-3">
           <div className="flex flex-col lg:flex-row items-center justify-center">
             {/* Left Side: Mission Description */}
             <div className="w-full lg:w-1/2 p-8 md:p-10 lg:p-12"> {/* Increased padding for better spacing */}

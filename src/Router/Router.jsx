@@ -28,10 +28,12 @@ import Forbidden from "../pages/Forbidden/Forbidden";
 import AdminRoute from "../routes/AdminRoute";
 import DashBoardHome from "../pages/dashboardPages/dashboardHome/DashBoardHome";
 import Loading from "../pages/shared/loading/Loading";
+import Error from "../pages/Error";
 export const router = createBrowserRouter([
   {
     path: "/",
     Component:MainLayout,
+    errorElement:<Error></Error>,
     children:[
         {
             index:true, Component:Home
@@ -42,13 +44,13 @@ export const router = createBrowserRouter([
         },
         {
           path:"allPaidClasses",
-          // loader:()=>fetch('https://my-edugenix-project-server-site.vercel.app/allApproveClassCount'),
-          loader:()=>fetch('http://localhost:3000/allApproveClassCount'),
+          loader:()=>fetch('https://my-edugenix-project-server-site.vercel.app/allApproveClassCount'),
+          
           element:<PrivateRoute><AllPaidClasses></AllPaidClasses></PrivateRoute>,
           hydrateFallbackElement:<Loading></Loading>
         },
         {
-          path:"enroll/:id",
+          path:"classes-details/:id",
           element:<PrivateRoute><PaidClassDetails></PaidClassDetails></PrivateRoute>
         },
         {
@@ -84,8 +86,8 @@ export const router = createBrowserRouter([
       },
       {
         path:"teacher-requests",
-        // loader:()=>fetch('https://my-edugenix-project-server-site.vercel.app/allTeachersCount'),
-        loader:()=>fetch('http://localhost:3000/allTeachersCount'),
+        
+        loader:()=>fetch('https://my-edugenix-project-server-site.vercel.app/allTeachersCount'),
         element:<AdminRoute><PendingTeacher></PendingTeacher></AdminRoute>,
         hydrateFallbackElement:<Loading></Loading>
       },
@@ -114,8 +116,8 @@ export const router = createBrowserRouter([
       {
         path:"all-classes",
         element:<AdminRoute><AllClasses></AllClasses></AdminRoute>,
-        // loader:()=>fetch('https://my-edugenix-project-server-site.vercel.app/totalClassCount'),
-        loader:()=>fetch('http://localhost:3000/totalClassCount'),
+        loader:()=>fetch('https://my-edugenix-project-server-site.vercel.app/totalClassCount'),
+        
         hydrateFallbackElement:<Loading></Loading>
       },
       

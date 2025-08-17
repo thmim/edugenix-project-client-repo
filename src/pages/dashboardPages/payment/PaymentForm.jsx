@@ -20,7 +20,7 @@ const PaymentForm = () => {
   const { isPending, data: classInfo = {} } = useQuery({
     queryKey: ["classes", courseId],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/classes/${courseId}`);
+      const res = await axiosSecure.get(`/classes-details/${courseId}`);
       return res.data;
     }
   });
@@ -37,8 +37,9 @@ const PaymentForm = () => {
     return <Loading></Loading>;
   }
    console.log(classInfo);
-  const amount = classInfo.price;
+  const amount = classInfo[0].price;
   const amountInCents = amount * 100;
+  console.log(amount)
 
   const handleSubmit = async (e) => {
     e.preventDefault();

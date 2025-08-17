@@ -15,7 +15,7 @@
 
 
 a.active{
-    @apply bg-accent
+    @apply bg-green-400
     
 }
 
