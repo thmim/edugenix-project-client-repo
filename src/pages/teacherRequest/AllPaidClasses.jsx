@@ -60,7 +60,7 @@ console.log(classes)
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
-      <h2 className="text-5xl text-blue-400 font-bold mb-8 text-center">Explore Our Paid Courses</h2>
+      <h2 className="text-4xl font-bold mb-12 text-center">Explore Our Paid Courses</h2>
       <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {classes.map((cls) => (
           // console.log(cls.courseInstructor.image)

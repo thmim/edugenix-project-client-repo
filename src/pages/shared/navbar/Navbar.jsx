@@ -11,9 +11,10 @@ const Navbar = () => {
     <li className='font-bold hover:bg-green-300 rounded'><NavLink to="/">Home</NavLink></li>
     <li className='font-bold hover:bg-green-300 rounded'><NavLink to="/allPaidClasses">All Classes</NavLink></li>
     <li className='font-bold hover:bg-green-300 rounded'><NavLink to="/teacherApply">Teach on EduGenix</NavLink></li>
+    <li className='font-bold hover:bg-green-300 rounded'><NavLink to="/contact">Contact Us</NavLink></li>
     </>
     return (
-        <div className="navbar shadow-sm bg-green-50">
+        <div className="navbar bg-green-50 sticky top-0 z-50">
   <div className="navbar-start py-3">
     <div className="dropdown">
       <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">

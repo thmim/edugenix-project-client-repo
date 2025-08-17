@@ -29,6 +29,7 @@ import AdminRoute from "../routes/AdminRoute";
 import DashBoardHome from "../pages/dashboardPages/dashboardHome/DashBoardHome";
 import Loading from "../pages/shared/loading/Loading";
 import Error from "../pages/Error";
+import ContactUs from "../pages/ContactUs";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -43,8 +44,13 @@ export const router = createBrowserRouter([
           element:<PrivateRoute><TeacherRequest></TeacherRequest></PrivateRoute>
         },
         {
+          path:"contact",
+          Component:ContactUs
+        },
+        {
           path:"allPaidClasses",
-          loader:()=>fetch('https://my-edugenix-project-server-site.vercel.app/allApproveClassCount'),
+          // loader:()=>fetch('https://my-edugenix-project-server-site.vercel.app/allApproveClassCount'),
+          loader:()=>fetch('http://localhost:3000/allApproveClassCount'),
           
           element:<PrivateRoute><AllPaidClasses></AllPaidClasses></PrivateRoute>,
           hydrateFallbackElement:<Loading></Loading>
@@ -87,7 +93,8 @@ export const router = createBrowserRouter([
       {
         path:"teacher-requests",
         
-        loader:()=>fetch('https://my-edugenix-project-server-site.vercel.app/allTeachersCount'),
+        // loader:()=>fetch('https://my-edugenix-project-server-site.vercel.app/allTeachersCount'),
+        loader:()=>fetch('http://localhost:3000/allTeachersCount'),
         element:<AdminRoute><PendingTeacher></PendingTeacher></AdminRoute>,
         hydrateFallbackElement:<Loading></Loading>
       },
@@ -116,7 +123,8 @@ export const router = createBrowserRouter([
       {
         path:"all-classes",
         element:<AdminRoute><AllClasses></AllClasses></AdminRoute>,
-        loader:()=>fetch('https://my-edugenix-project-server-site.vercel.app/totalClassCount'),
+        // loader:()=>fetch('https://my-edugenix-project-server-site.vercel.app/totalClassCount'),
+        loader:()=>fetch('http://localhost:3000/totalClassCount'),
         
         hydrateFallbackElement:<Loading></Loading>
       },
