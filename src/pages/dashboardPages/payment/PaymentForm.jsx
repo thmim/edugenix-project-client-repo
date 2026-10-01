@@ -39,7 +39,6 @@ const PaymentForm = () => {
    console.log(classInfo);
   const amount = classInfo[0].price;
   const amountInCents = amount * 100;
-  console.log(amount)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -133,7 +132,7 @@ const PaymentForm = () => {
           Course: {classInfo?.title || 'Loading...'}
         </p>
         <p className="text-3xl font-bold text-center text-blue-700 mb-8">
-          Amount: ${amount?.toFixed(2) || 'N/A'}
+           Amount: ${Number(amount)?.toFixed(2) || 'N/A'}
         </p>
 
         <form className="space-y-6" onSubmit={handleSubmit}>

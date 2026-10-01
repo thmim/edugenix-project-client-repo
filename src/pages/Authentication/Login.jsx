@@ -15,7 +15,7 @@ const Login = () => {
     const from = location.state?.from || "/"
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = data => {
-        console.log(data);
+        
         signInUser(data.email,data.password)
         .then(result=>{
             console.log(result.user)

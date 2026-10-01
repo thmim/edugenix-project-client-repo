@@ -8,6 +8,7 @@ import { FaPhoneVolume } from 'react-icons/fa6';
 
 const Profile = () => {
     const {user} = useAuth();
+    console.log(user)
     const axiosSecure = useAxiosSecure();
 
   const { data: userData = {}, isLoading } = useQuery({

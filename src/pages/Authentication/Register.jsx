@@ -17,12 +17,11 @@ const Register = () => {
     const { createUser, socialLogin, updateUserProfile } = useAuth();
     
     const location = useLocation();
-    console.log(location)
+    
     const navigate = useNavigate();
     const from = location.state?.from || "/";
 
     const onSubmit = async (data) => { 
-        console.log('Form Data:', data);
 
         let uploadedImageUrl = '';
         

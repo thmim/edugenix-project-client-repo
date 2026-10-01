@@ -106,7 +106,7 @@ const PopularClasses = () => {
 
                 {/* View Details Button */}
                 <button
-                  onClick={() => navigate(`enroll/${cls._id}`)}
+                  onClick={() => navigate(`classes-details/${cls._id}`)}
                   className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg font-semibold text-sm hover:bg-blue-700 transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 shadow-sm hover:shadow-md mt-auto"
                 >
                   View Details

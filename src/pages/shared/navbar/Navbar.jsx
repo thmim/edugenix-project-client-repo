@@ -1,8 +1,8 @@
 import React from 'react';
-import Logo from '../logo/Logo';
 import { Link, NavLink } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
 import Logout from '../Logout';
+import Logo from '../logo/Logo';
 
 const Navbar = () => {
   const {user} = useAuth();
@@ -26,7 +26,14 @@ const Navbar = () => {
         {navlinks}
       </ul>
     </div>
-    <span className="hidden lg:block text-xl ml-16"><Logo></Logo></span>
+
+    <Logo/>
+    {/* <span className="hidden lg:block text-xl ml-16">
+      <Logo></Logo>
+      <img 
+      className='border w-20 h-20 font-bold'
+      src={Logo} alt="logo" />
+      </span> */}
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1">

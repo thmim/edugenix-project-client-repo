@@ -49,8 +49,8 @@ export const router = createBrowserRouter([
         },
         {
           path:"allPaidClasses",
-          // loader:()=>fetch('https://my-edugenix-project-server-site.vercel.app/allApproveClassCount'),
-          loader:()=>fetch('http://localhost:3000/allApproveClassCount'),
+          loader:()=>fetch('https://my-edugenix-project-server-site.vercel.app/allApproveClassCount'),
+          // loader:()=>fetch('http://localhost:3000/allApproveClassCount'),
           
           element:<PrivateRoute><AllPaidClasses></AllPaidClasses></PrivateRoute>,
           hydrateFallbackElement:<Loading></Loading>
@@ -93,8 +93,8 @@ export const router = createBrowserRouter([
       {
         path:"teacher-requests",
         
-        // loader:()=>fetch('https://my-edugenix-project-server-site.vercel.app/allTeachersCount'),
-        loader:()=>fetch('http://localhost:3000/allTeachersCount'),
+        loader:()=>fetch('https://my-edugenix-project-server-site.vercel.app/allTeachersCount'),
+        // loader:()=>fetch('http://localhost:3000/allTeachersCount'),
         element:<AdminRoute><PendingTeacher></PendingTeacher></AdminRoute>,
         hydrateFallbackElement:<Loading></Loading>
       },
@@ -123,8 +123,8 @@ export const router = createBrowserRouter([
       {
         path:"all-classes",
         element:<AdminRoute><AllClasses></AllClasses></AdminRoute>,
-        // loader:()=>fetch('https://my-edugenix-project-server-site.vercel.app/totalClassCount'),
-        loader:()=>fetch('http://localhost:3000/totalClassCount'),
+        loader:()=>fetch('https://my-edugenix-project-server-site.vercel.app/totalClassCount'),
+        // loader:()=>fetch('http://localhost:3000/totalClassCount'),
         
         hydrateFallbackElement:<Loading></Loading>
       },

@@ -86,7 +86,7 @@ const MyEnrollClass = () => {
                   
                   <p className="font-bold">
                     Amount Paid:
-                    <span className='font-bold text-blue-500'> ${cls.amount ? cls.amount.toFixed(2) : 'N/A'}</span>
+                    <span className='font-bold text-blue-500'> ${Number(cls.amount)? Number(cls.amount).toFixed(2) : 'N/A'}</span>
                   </p>
                   <p className="font-bold">
                     Enrolled On:
