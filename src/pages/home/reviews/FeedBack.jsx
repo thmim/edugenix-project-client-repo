@@ -186,7 +186,7 @@ const FeedBack = () => {
   }
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-white via-emerald-50/60 to-white px-4 py-20">
+    <section className="relative overflow-hidden bg-gradient-to-b from-white via-emerald-50/60 to-white px-4 py-16">
       {/* Swiper theme overrides */}
       <style>{`
         .edu-feedback {
