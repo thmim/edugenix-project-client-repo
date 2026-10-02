@@ -61,7 +61,7 @@ const TeacherRequest = () => {
         return (
             <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
                 <div className="bg-white shadow-lg rounded-2xl p-8 max-w-md w-full text-center border border-gray-200">
-                    <FaUserTie className="text-blue-600 text-6xl mx-auto mb-4" />
+                    <FaUserTie className="text-green-300 text-6xl mx-auto mb-4" />
                     <h2 className="text-3xl font-bold text-gray-800 mb-3">You're Already an Instructor!</h2>
                     <p className="text-gray-600 text-lg mb-6">
                         Thank you for your interest. You are already registered as an {role} on our platform.
@@ -81,7 +81,7 @@ const TeacherRequest = () => {
         <div className="w-full min-h-screen flex items-center justify-center bg-gray-100 px-4 py-10">
             <div className="bg-white shadow-lg rounded-lg p-8 max-w-2xl w-full">
                 <div className="text-center mb-6">
-                    <FaUserTie className="text-blue-600 text-4xl mx-auto mb-2" />
+                    <FaUserTie className="text-green-500 text-4xl mx-auto mb-2" />
                     <h2 className="text-2xl font-bold">Apply as an Instructor</h2>
                     <p className="text-gray-600 text-sm">Join EduGenix and start sharing your knowledge with the world.</p>
                 </div>
@@ -189,7 +189,7 @@ const TeacherRequest = () => {
                     <div className="text-center">
                         <button
                             type="submit"
-                            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-semibold transition"
+                            className="bg-green-400 hover:bg-green-600 text-white px-6 py-3 rounded-md font-semibold transition"
                         >
                             Submit For Review
                         </button>

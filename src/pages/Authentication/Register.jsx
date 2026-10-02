@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { useState } from 'react';
 import registerlottie from '../../assets/register.json';
 import { useForm } from 'react-hook-form';
 import Lottie from 'lottie-react';
@@ -9,22 +10,37 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import useAxios from '../../hooks/useAxios';
 import useAuth from '../../hooks/useAuth';
-import Logo from '../shared/logo/Logo';
+import {
+    FaArrowRight,
+    FaCheckCircle,
+    FaCloudUploadAlt,
+    FaEnvelope,
+    FaEye,
+    FaEyeSlash,
+    FaGraduationCap,
+    FaLock,
+    FaPhoneAlt,
+    FaUser,
+} from 'react-icons/fa';
 
 const Register = () => {
     const axiosInstance = useAxios();
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const { createUser, socialLogin, updateUserProfile } = useAuth();
-    
+
     const location = useLocation();
-    
+
     const navigate = useNavigate();
     const from = location.state?.from || "/";
 
-    const onSubmit = async (data) => { 
+    // UI-only state
+    const [showPassword, setShowPassword] = useState(false);
+    const selectedFileName = watch('image')?.[0]?.name;
+
+    const onSubmit = async (data) => {
 
         let uploadedImageUrl = '';
-        
+
         if (data.image && data.image[0]) {
             const image = data.image[0];
             const formData = new FormData();
@@ -35,27 +51,26 @@ const Register = () => {
                 uploadedImageUrl = res.data.data.url;
             } catch (imgError) {
                 console.error("Image upload failed:", imgError);
-                
+
                 Swal.fire({
                     icon: 'error',
                     title: 'Image Upload Failed',
                     text: 'Could not upload profile picture. Please try again.',
+                    confirmButtonColor: '#10b981',
                 });
                 return;
             }
         }
 
         try {
-            
+
             const result = await createUser(data.email, data.password);
-            console.log('Firebase User Created:', result.user);
 
             const userProfile = {
                 displayName: data.name,
-                photoURL: uploadedImageUrl 
+                photoURL: uploadedImageUrl
             };
             await updateUserProfile(userProfile);
-            console.log('Firebase Profile Updated');
 
             const userInfo = {
                 email: data.email,
@@ -67,22 +82,20 @@ const Register = () => {
                 phone: data.phone || '',
             };
             const userRes = await axiosInstance.post('/users', userInfo);
-            console.log('User Info Posted to DB:', userRes.data);
 
-           
             Swal.fire({
                 icon: 'success',
                 title: 'Registration Successful!',
                 text: 'Welcome to our platform!',
-                confirmButtonColor: '#3085d6',
+                confirmButtonColor: '#10b981',
                 confirmButtonText: 'OK'
             });
             navigate('/')
-           
+
 
         } catch (error) {
             console.error("Registration or DB update failed:", error);
-           
+
             let errorMessage = "Registration failed. Please try again.";
             if (error.code === 'auth/email-already-in-use') {
                 errorMessage = "This email is already in use.";
@@ -93,15 +106,15 @@ const Register = () => {
                 icon: 'error',
                 title: 'Registration Error',
                 text: errorMessage,
+                confirmButtonColor: '#10b981',
             });
         }
     };
 
-    const handleSocialLogin = async () => { 
+    const handleSocialLogin = async () => {
         try {
             const result = await socialLogin();
             const user = result.user;
-            console.log('Social Login User:', user);
 
             const userSocialInfo = {
                 email: user.email,
@@ -113,13 +126,12 @@ const Register = () => {
                 phone: '',
             };
             const res = await axiosInstance.post('/users', userSocialInfo);
-            console.log('Social User Info Posted to DB:', res.data);
 
             Swal.fire({
                 icon: 'success',
                 title: 'Login Successful!',
                 text: 'Welcome back!',
-                confirmButtonColor: '#3085d6',
+                confirmButtonColor: '#10b981',
                 confirmButtonText: 'OK'
             });
             navigate(from);
@@ -130,116 +142,221 @@ const Register = () => {
                 icon: 'error',
                 title: 'Login Error',
                 text: error.message || 'Social login failed. Please try again.',
+                confirmButtonColor: '#10b981',
             });
         }
     };
 
-    return (
-        <div className="min-h-screen bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 flex items-center justify-center px-4 py-8">
-            <div className="w-full max-w-6xl bg-white shadow-2xl rounded-3xl overflow-hidden flex flex-col md:flex-row">
+    const inputClass =
+        'w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-11 pr-4 text-slate-800 outline-none transition-all duration-300 placeholder:text-slate-400 focus:border-emerald-400 focus:bg-white focus:ring-4 focus:ring-emerald-100';
+    const iconClass = 'pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400';
+    const labelClass = 'mb-1.5 block text-sm font-semibold text-slate-700';
+    const errorClass = 'mt-1.5 text-sm font-medium text-red-500';
 
-                {/* Left side - Animation */}
-                <div className="md:w-1/2 bg-gradient-to-tr from-indigo-200 to-purple-300 flex justify-center items-center p-6">
-                    <Lottie animationData={registerlottie} className="w-full max-w-md" loop={true} />
+    return (
+        <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-emerald-50 via-white to-cyan-50 px-4 py-10">
+            {/* Background decoration */}
+            <div className="pointer-events-none absolute -left-24 top-0 h-96 w-96 rounded-full bg-emerald-200/50 blur-3xl" />
+            <div className="pointer-events-none absolute -right-24 bottom-0 h-96 w-96 rounded-full bg-cyan-200/50 blur-3xl" />
+            <div
+                className="pointer-events-none absolute inset-0 opacity-30"
+                style={{
+                    backgroundImage: 'radial-gradient(#10b98126 1px, transparent 1px)',
+                    backgroundSize: '26px 26px',
+                }}
+            />
+
+            <div className="relative flex w-full max-w-6xl flex-col overflow-hidden rounded-3xl bg-white shadow-2xl shadow-emerald-900/10 md:flex-row">
+
+                {/* Left side - Brand + animation */}
+                <div className="relative hidden overflow-hidden bg-gradient-to-br from-slate-900 via-slate-900 to-emerald-950 p-10 text-white md:flex md:w-5/12 md:flex-col md:justify-between">
+                    <div className="pointer-events-none absolute -left-16 -top-16 h-64 w-64 rounded-full bg-emerald-500/25 blur-3xl" />
+                    <div className="pointer-events-none absolute -bottom-16 -right-16 h-64 w-64 rounded-full bg-cyan-500/25 blur-3xl" />
+
+                    <Link to="/" className="group relative inline-flex w-fit items-center gap-2.5">
+                        <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-400 via-teal-500 to-cyan-500 text-xl text-white shadow-lg shadow-emerald-500/30 transition-transform duration-300 group-hover:rotate-6">
+                            <FaGraduationCap />
+                        </span>
+                        <span className="text-2xl font-extrabold tracking-tight">
+                            Edu<span className="bg-gradient-to-r from-emerald-300 to-cyan-300 bg-clip-text text-transparent">Genix</span>
+                        </span>
+                    </Link>
+
+                    <div className="relative my-6">
+                        <div className="mx-auto max-w-sm rounded-3xl border border-white/10 bg-white/10 p-4 backdrop-blur">
+                            <Lottie animationData={registerlottie} className="w-full" loop={true} />
+                        </div>
+                    </div>
+
+                    <div className="relative">
+                        <h3 className="text-2xl font-bold leading-snug">
+                            Start your{' '}
+                            <span className="bg-gradient-to-r from-emerald-300 to-cyan-300 bg-clip-text text-transparent">learning journey</span>{' '}
+                            today
+                        </h3>
+                        <ul className="mt-4 space-y-2 text-sm text-slate-300">
+                            {['Access expert-led classes', 'Practice with real assignments', 'Earn certificates'].map((t) => (
+                                <li key={t} className="flex items-center gap-2">
+                                    <FaCheckCircle className="text-emerald-400" /> {t}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 </div>
 
                 {/* Right side - Form */}
-                <div className="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
-                    <div className="mb-6 flex justify-center">
-                        <Link to="/"><Logo></Logo></Link>
-                    </div>
-                    <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Create An Account</h2>
+                <div className="flex flex-col justify-center p-6 sm:p-10 md:w-7/12 md:p-12">
+                    {/* Mobile brand */}
+                    <Link to="/" className="mb-6 inline-flex items-center justify-center gap-2 md:hidden">
+                        <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-400 via-teal-500 to-cyan-500 text-white">
+                            <FaGraduationCap />
+                        </span>
+                        <span className="text-xl font-extrabold text-slate-800">
+                            Edu<span className="bg-gradient-to-r from-emerald-500 to-cyan-500 bg-clip-text text-transparent">Genix</span>
+                        </span>
+                    </Link>
 
-                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-                        <div>
-                            {/* name field */}
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
-                            <input
-                                {...register('name', { required: "Name is required" })}
-                                type="text"
-                                className="input input-bordered w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
-                                placeholder="Enter your Name"
-                            />
-                            {errors.name && (
-                                <p className='text-red-500 text-sm mt-1' role="alert">{errors.name.message}</p>
-                            )}
-                        </div>
-                        <div>
-                            {/* image field */}
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Your Profile picture</label>
-                            <input
-                                {...register('image')} 
-                                type="file"
-                                className="input input-bordered w-full file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
-                                placeholder="Upload your Image"
-                            />
-                            
+                    <h2 className="text-3xl font-extrabold tracking-tight text-slate-900">Create An Account</h2>
+                    <p className="mt-1 text-slate-500">Join EduGenix and start learning today.</p>
+
+                    <form onSubmit={handleSubmit(onSubmit)} className="mt-7 space-y-5">
+                        <div className="grid gap-5 sm:grid-cols-2">
+                            <div>
+                                {/* name field */}
+                                <label className={labelClass}>Your Name</label>
+                                <div className="relative">
+                                    <FaUser className={iconClass} />
+                                    <input
+                                        {...register('name', { required: "Name is required" })}
+                                        type="text"
+                                        className={inputClass}
+                                        placeholder="Enter your name"
+                                    />
+                                </div>
+                                {errors.name && (
+                                    <p className={errorClass} role="alert">{errors.name.message}</p>
+                                )}
+                            </div>
+
+                            <div>
+                                {/* Phone Number Field */}
+                                <label className={labelClass}>
+                                    Phone <span className="font-normal text-slate-400">(Optional)</span>
+                                </label>
+                                <div className="relative">
+                                    <FaPhoneAlt className={iconClass} />
+                                    <input
+                                        {...register('phone')}
+                                        type="tel"
+                                        className={inputClass}
+                                        placeholder="+8801XXXXXXXXX"
+                                    />
+                                </div>
+                            </div>
                         </div>
 
                         <div>
                             {/* email field */}
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                            <input
-                                {...register('email', { required: "Email is required" })}
-                                type="email"
-                                className="input input-bordered w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                placeholder="Enter your email"
-                            />
+                            <label className={labelClass}>Email Address</label>
+                            <div className="relative">
+                                <FaEnvelope className={iconClass} />
+                                <input
+                                    {...register('email', { required: "Email is required" })}
+                                    type="email"
+                                    className={inputClass}
+                                    placeholder="Enter your email"
+                                />
+                            </div>
                             {errors.email && (
-                                <p className='text-red-500 text-sm mt-1' role="alert">{errors.email.message}</p>
+                                <p className={errorClass} role="alert">{errors.email.message}</p>
                             )}
                         </div>
-                        {/* Phone Number Field */}
+
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number (Optional)</label>
-                            <input
-                                {...register('phone')}
-                                type="tel"
-                                className="input input-bordered w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                placeholder="e.g., +8801XXXXXXXXX"
-                            />
-                            
+                            {/* image field */}
+                            <label className={labelClass}>
+                                Profile Picture <span className="font-normal text-slate-400">(Optional)</span>
+                            </label>
+                            <label className="flex cursor-pointer items-center gap-4 rounded-xl border-2 border-dashed border-slate-200 bg-slate-50 px-4 py-3.5 transition-all duration-300 hover:border-emerald-400 hover:bg-emerald-50/60">
+                                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-400 to-cyan-500 text-xl text-white shadow-md shadow-emerald-500/30">
+                                    <FaCloudUploadAlt />
+                                </span>
+                                <span className="min-w-0 text-sm">
+                                    <span className="block truncate font-semibold text-slate-700">
+                                        {selectedFileName || 'Click to upload your photo'}
+                                    </span>
+                                    <span className="text-xs text-slate-400">PNG or JPG</span>
+                                </span>
+                                <input
+                                    {...register('image')}
+                                    type="file"
+                                    accept="image/*"
+                                    className="hidden"
+                                />
+                            </label>
                         </div>
 
                         <div>
                             {/* password field */}
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                            <input
-                                {...register('password', {
-                                    required: "Password is required",
-                                    pattern: {
-                                        value: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/,
-                                        message: 'Password must be at least 6 characters and include uppercase, lowercase, and a number.'
-                                    }
-                                })}
-                                type="password"
-                                className="input input-bordered w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                placeholder="Enter your password"
-                            />
-                            {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
+                            <label className={labelClass}>Password</label>
+                            <div className="relative">
+                                <FaLock className={iconClass} />
+                                <input
+                                    {...register('password', {
+                                        required: "Password is required",
+                                        pattern: {
+                                            value: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/,
+                                            message: 'Password must be at least 6 characters and include uppercase, lowercase, and a number.'
+                                        }
+                                    })}
+                                    type={showPassword ? 'text' : 'password'}
+                                    className={`${inputClass} pr-12`}
+                                    placeholder="Create a password"
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword((s) => !s)}
+                                    aria-label={showPassword ? 'Hide password' : 'Show password'}
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 transition-colors hover:text-emerald-500"
+                                >
+                                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                </button>
+                            </div>
+                            {errors.password ? (
+                                <p className={errorClass}>{errors.password.message}</p>
+                            ) : (
+                                <p className="mt-1.5 text-xs text-slate-400">
+                                    At least 6 characters with uppercase, lowercase, and a number.
+                                </p>
+                            )}
                         </div>
 
                         <button
                             type="submit"
-                            className="w-full py-2 px-4 bg-blue-600 text-white rounded-md font-semibold hover:bg-blue-700 transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 py-3.5 font-semibold tracking-wide text-white shadow-lg shadow-emerald-500/30 transition-all duration-300 hover:shadow-emerald-500/50 hover:brightness-105"
                         >
                             Register
+                            <FaArrowRight className="transition-transform duration-300 group-hover:translate-x-1" />
                         </button>
                     </form>
 
-                    <div className="divider my-6 text-gray-500">OR</div>
+                    <div className="my-6 flex items-center gap-4 text-xs font-semibold uppercase tracking-wider text-slate-400">
+                        <span className="h-px flex-1 bg-slate-200" />
+                        or
+                        <span className="h-px flex-1 bg-slate-200" />
+                    </div>
 
                     <button
                         onClick={handleSocialLogin}
-                        className="w-full flex items-center justify-center gap-3 py-2 px-4 bg-white border border-gray-300 rounded-md shadow hover:shadow-md transition duration-300 focus:outline-none focus:ring-2 focus:ring-gray-400"
+                        className="flex w-full items-center justify-center gap-3 rounded-xl border border-slate-200 bg-white py-3 font-semibold text-slate-700 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-md"
                     >
                         <FcGoogle size={24} />
-                        <span className="text-gray-700 font-medium">Continue with Google</span>
+                        Continue with Google
                     </button>
 
-                    <p className="text-center text-sm mt-6 text-gray-600">
+                    <p className="mt-6 text-center text-sm text-slate-600">
                         Already have an account?{" "}
-                        <Link to="/login" className="text-blue-600 hover:underline font-semibold">
+                        <Link to="/login" className="font-bold text-emerald-600 hover:underline">
                             Login
                         </Link>
                     </p>
